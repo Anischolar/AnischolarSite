@@ -72,7 +72,7 @@ const Checkout = () => {
             });
         }
     }
-    
+
 
     // Send OTP
     function sendOtp() {
@@ -82,10 +82,7 @@ const Checkout = () => {
         const appVerifier = window.recaptchaVerifier;
         const formattedPhone = `+256${phone.trim().replace(/^0/, '')}`;
 
-        // console.log("Using API Key:", firebaseConfig.apiKey);
-        console.log(formattedPhone);
-        
-
+        // Sending OTP
         signInWithPhoneNumber(auth, formattedPhone, appVerifier)
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
@@ -211,7 +208,7 @@ const Checkout = () => {
                                     {loading ? 'Verifying...' : 'Verify OTP'}
                                 </button>
                             </div>
-                      )} 
+                        )}
                     </div>
 
                     {/* Payment Form */}
@@ -246,7 +243,7 @@ const Checkout = () => {
                                 {loading ? 'Processing Payment...' : 'Complete Payment'}
                             </button>
                         </form>
-                  )} 
+                    )}
 
                     <div id="recaptcha-container"></div>
                 </div>
