@@ -60,43 +60,60 @@ const Checkout = () => {
         if (!plan) navigate('/compare/plans');
     }, [plan, navigate]);
 
-    // Configure Recaptcha
-    function onCaptchVerify() {
-        if (!window.recaptchaVerifier) {
-            window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-                size: "invisible",
-                callback: (response) => {
-                    sendOtp();
-                },
-                "expired-callback": () => { console.log("Recaptcha expired"); },
-            });
-        }
+   // Configure Recaptcha
+function onCaptchVerify() {
+    if (!window.recaptchaVerifier) {
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+            size: "invisible",
+            callback: (response) => {
+                console.log("reCAPTCHA verified successfully!");
+                sendOtp(); // Call sendOtp only when reCAPTCHA is solved
+            },
+            "expired-callback": () => {
+                console.log("reCAPTCHA expired, resetting...");
+                window.recaptchaVerifier.reset();
+            }
+        });
+    } else {
+        // Reset and render a new reCAPTCHA instance
+        window.recaptchaVerifier.render().then((widgetId) => {
+            grecaptcha.reset(widgetId);
+        });
     }
+}
+
 
 
     // Send OTP
     function sendOtp() {
         setLoading(true);
+        
+        // Verify reCAPTCHA before sending OTP
         onCaptchVerify();
-
+    
         const appVerifier = window.recaptchaVerifier;
         const formattedPhone = `+256${phone.trim().replace(/^0/, '')}`;
-
-        // Sending OTP
+    
         signInWithPhoneNumber(auth, formattedPhone, appVerifier)
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
-                setVerificationId(confirmationResult.verificationId); // Store verification ID
+                setVerificationId(confirmationResult.verificationId);
                 setLoading(false);
                 console.log("OTP sent successfully!");
-                // toast.success("OTP sent successfully!");
             })
             .catch((error) => {
-                console.log(error);
+                console.error("Error sending OTP:", error);
                 setLoading(false);
+    
+                // Reset reCAPTCHA on error
+                if (window.recaptchaVerifier) {
+                    window.recaptchaVerifier.render().then((widgetId) => {
+                        grecaptcha.reset(widgetId);
+                    });
+                }
             });
     }
-
+    
     // Verify OTP
     // const verifyOtp = async () => {
     //     try {
