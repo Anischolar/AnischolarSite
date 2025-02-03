@@ -135,8 +135,6 @@ function onCaptchVerify() {
         window.confirmationResult
             .confirm(otp)
             .then(async (res) => {
-                console.log(res);
-                setUser(res.user.phoneNumber);
                 setIsVerified(true)
                 setLoading(false);
             })
@@ -149,37 +147,35 @@ function onCaptchVerify() {
     // Handle payment
     const handlePayment = async (e) => {
         e.preventDefault();
-        if (!isVerified) {
-            alert('Please verify your phone number first');
-            return;
-        }
+        console.log("To be done soon");
+        
 
-        try {
-            setLoading(true);
-            const yo = new YoPayments({
-                username: 'YO_API_USERNAME',
-                password: 'YO_API_PASSWORD'
-            });
+        // try {
+        //     setLoading(true);
+        //     const yo = new YoPayments({
+        //         username: 'YO_API_USERNAME',
+        //         password: 'YO_API_PASSWORD'
+        //     });
 
-            const response = await yo.requestPayment({
-                amount: plan.price,
-                phone: `256${phone.replace(/^0/, '')}`,
-                transaction_reference: paymentDetails.transaction_reference,
-                reason: paymentDetails.reason
-            });
+        //     const response = await yo.requestPayment({
+        //         amount: plan.price,
+        //         phone: `256${phone.replace(/^0/, '')}`,
+        //         transaction_reference: paymentDetails.transaction_reference,
+        //         reason: paymentDetails.reason
+        //     });
 
-            if (response.status === 'success') {
-                alert('Payment initiated successfully!');
-                navigate('/payment-success');
-            } else {
-                throw new Error(response.message);
-            }
-        } catch (error) {
-            console.error('Payment error:', error);
-            alert(`Payment failed: ${error.message}`);
-        } finally {
-            setLoading(false);
-        }
+        //     if (response.status === 'success') {
+        //         alert('Payment initiated successfully!');
+        //         navigate('/payment-success');
+        //     } else {
+        //         throw new Error(response.message);
+        //     }
+        // } catch (error) {
+        //     console.error('Payment error:', error);
+        //     alert(`Payment failed: ${error.message}`);
+        // } finally {
+        //     setLoading(false);
+        // }
     };
 
     return (
