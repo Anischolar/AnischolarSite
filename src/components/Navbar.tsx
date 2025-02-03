@@ -98,25 +98,25 @@ const Navbar = () => {
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const scrollto = (el: string) => {
-    const header = document.querySelector("#header") as HTMLElement | null;
-    if (!header) return;
+  // const scrollto = (el: string) => {
+  //   const header = document.querySelector("#header") as HTMLElement | null;
+  //   if (!header) return;
 
-    let offset = header.offsetHeight;
+  //   let offset = header.offsetHeight;
 
-    if (!header.classList.contains("header-scrolled")) {
-      offset -= 20;
-    }
+  //   if (!header.classList.contains("header-scrolled")) {
+  //     offset -= 20;
+  //   }
 
-    const element = document.querySelector(el) as HTMLElement | null;
-    if (!element) return;
+  //   const element = document.querySelector(el) as HTMLElement | null;
+  //   if (!element) return;
 
-    const elementPos = element.offsetTop;
-    window.scrollTo({
-      top: elementPos - offset,
-      behavior: "smooth",
-    });
-  };
+  //   const elementPos = element.offsetTop;
+  //   window.scrollTo({
+  //     top: elementPos - offset,
+  //     behavior: "smooth",
+  //   });
+  // };
 
   const handleScroll = () => {
     const header = document.querySelector("#header") as HTMLElement | null;
@@ -163,6 +163,17 @@ const Navbar = () => {
     });
   };
 
+  const scrollto = (el: string) => {
+    const element = document.querySelector(el) as HTMLElement | null;
+
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 80,
+        behavior: "smooth",
+      });
+    }
+  };
+
   window.addEventListener("load", navbarlinksActive);
   window.addEventListener("scroll", navbarlinksActive);
 
@@ -171,46 +182,46 @@ const Navbar = () => {
       <header id="header" className="fixed-top flex flex-col align-items-center">
         <div className="container d-flex align-items-center justify-content-between">
           <div className="logo">
-            <a>
+            <button>
               <img src={logo} alt="" className="img-fluid"></img>
-            </a>
+            </button>
           </div>
           <nav id="navbar" className="mobile-view navbar">
             <ul>
               <li>
-                <a className="nav-link scrollto" href="#hero">
+                <button className="nav-link scrollto" onClick={() => scrollto("#hero")}>
                   Home
-                </a>
+                </button>
               </li>
               <li>
-                <a className="nav-link scrollto" href="#about">
+                <button className="nav-link scrollto" onClick={() => scrollto("#about")}>
                   About
-                </a>
+                </button>
               </li>
               <li>
-                <a className="nav-link scrollto" href="#services">
+                <button className="nav-link scrollto" onClick={() => scrollto("#services")}>
                   Services
-                </a>
+                </button>
               </li>
               <li>
-                <a className="nav-link scrollto " href="#portfolio">
-                  Gallery
-                </a>
+                <button className="nav-link scrollto " onClick={() => scrollto("#testimonials")}>
+                Testimonials
+                </button>
               </li>
               <li>
-                <a className="nav-link scrollto" href="#team">
-                  Team
-                </a>
+                <button className="nav-link scrollto" onClick={() => scrollto("#clients")}>
+                  Partners
+                </button>
               </li>
               <li>
-                <Link className="text-decoration-none" to="/blogs">
+                <Link className="text-decoration-none nav-link" to="/blogs">
                   Blog
                 </Link>
               </li>
               <li>
-                <a className="nav-link scrollto" href="#contact">
+                <button className="nav-link scrollto" onClick={() => scrollto("#contact")}>
                   Contact
-                </a>
+                </button>
               </li>
               {isLoggedIn ? (
                 <li>

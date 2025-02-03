@@ -171,8 +171,8 @@ h6 {
   position: relative;
 }
 
-.navbar a,
-.navbar a:focus {
+.navbar .nav-link,
+.navbar .nav-link:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -184,17 +184,17 @@ h6 {
   transition: 0.3s;
 }
 
-.navbar a i,
-.navbar a:focus i {
+.navbar .nav-link i,
+.navbar .nav-link:focus i {
   font-size: 12px;
   line-height: 0;
   margin-left: 5px;
 }
 
-.navbar a:hover,
+.navbar .nav-link:hover,
 .navbar .active,
 .navbar .active:focus,
-.navbar li:hover>a {
+.navbar li:hover>.nav-link {
   color: #27ae60;
 }
 
