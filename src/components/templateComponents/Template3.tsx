@@ -103,9 +103,9 @@ const Template3 = ({ cvData, setCvContent, isEditing }) => {
                             style={{
                                 marginBottom: "1.5rem",
                                 padding: "1rem",
-                                backgroundColor: "#f9fafb",
-                                borderRadius: "8px",
-                                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
+                                // backgroundColor: "#f9fafb",
+                                // borderRadius: "8px",
+                                // boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
                             }}
                         >
                             <p
@@ -120,11 +120,30 @@ const Template3 = ({ cvData, setCvContent, isEditing }) => {
                                 onBlur={(e) => handleBlur("experience", e.target.innerText, "duration", index)}
                                 style={{ color: "#777", fontSize: "0.9rem", margin: "0.5rem 0" }}
                             >
-                                {exp?.company} From {exp?.startDate} To {exp?.currentlyWorking?'Present':exp?.endDate}
+                                {exp?.company} From {exp?.startDate} To {exp?.currentlyWorking ? 'Present' : exp?.endDate}
                             </p>
 
-                            <div className='text-xs my-2 text-[#555]' dangerouslySetInnerHTML={{__html:exp?.workSummery}} />
-           
+
+                            {/* Ensure the summary is inside a <ul> for proper bullets */}
+                            <ul
+                                id={`work-summary-${index}`}
+                                className="list-disc pl-5 text-xs my-2 text-[#555]"
+                                dangerouslySetInnerHTML={{ __html: exp?.workSummery }}
+                            ></ul>
+
+                            {/* Inline styles to enforce bullet visibility */}
+                            <style>
+                                {`
+                            #work-summary-${index} ul {
+                                list-style-type: disc !important;
+                        
+                            }
+                            #work-summary-${index} li {
+                                display: list-item !important;
+                            }
+                        `}
+                            </style>
+
                         </div>
                     ))}
                 </div>
@@ -142,9 +161,9 @@ const Template3 = ({ cvData, setCvContent, isEditing }) => {
                             style={{
                                 marginBottom: "1.5rem",
                                 padding: "1rem",
-                                backgroundColor: "#f9fafb",
-                                borderRadius: "8px",
-                                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
+                                // backgroundColor: "#f9fafb",
+                                // borderRadius: "8px",
+                                // boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
                             }}
                         >
                             <p
@@ -200,8 +219,8 @@ const Template3 = ({ cvData, setCvContent, isEditing }) => {
                                 {cert.name} :
                             </span>
                             <a href={cert.link} className="text-xs text-blue-500 underline" target="_blank" rel="noopener noreferrer">
-   &nbsp;{cert.link}
-</a>
+                                &nbsp;{cert.link}
+                            </a>
                         </li>
                     ))}
                 </ul>

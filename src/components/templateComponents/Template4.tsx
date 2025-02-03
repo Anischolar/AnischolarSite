@@ -116,8 +116,25 @@ const Template4 = ({ cvData, setCvContent, isEditing }) => {
                             </span>
                         </h2>
                         
-                        <div className='my-2 text-[#4a4a4a]' dangerouslySetInnerHTML={{__html:experience?.workSummery}} />
-           
+                        {/* Ensure the summary is inside a <ul> for proper bullets */}
+                    <ul
+                        id={`work-summary-${index}`}
+                        className="list-disc pl-5 text-xs my-2"
+                        dangerouslySetInnerHTML={{ __html: experience?.workSummery }}
+                    ></ul>
+
+                    {/* Inline styles to enforce bullet visibility */}
+                    <style>
+                        {`
+                            #work-summary-${index} ul {
+                                list-style-type: disc !important;
+                        
+                            }
+                            #work-summary-${index} li {
+                                display: list-item !important;
+                            }
+                        `}
+                    </style>
                     </div>
                 ))}
             </div>

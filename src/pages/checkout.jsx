@@ -136,7 +136,8 @@ function onCaptchVerify() {
             .confirm(otp)
             .then(async (res) => {
                 console.log(res);
-                setUser(res.user);
+                setUser(res.user.phoneNumber);
+                setIsVerified(true)
                 setLoading(false);
             })
             .catch((err) => {
