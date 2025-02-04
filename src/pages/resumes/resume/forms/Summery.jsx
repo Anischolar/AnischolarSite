@@ -30,14 +30,55 @@ function Summery({ enabledNext }) {
         })
     }, [summery])
 
+    const parseAndFormatToHTML = (text) => {
+        try {
+          const jsonObject = JSON.parse(text);
+      
+          let textArray;
+      
+          // If the parsed object is already an array, use it directly
+          if (Array.isArray(jsonObject)) {
+            textArray = jsonObject;
+          } else {
+            // Extract the first array found inside the object
+            textArray = Object.values(jsonObject).find((value) => Array.isArray(value));
+          }
+      
+          if (!Array.isArray(textArray)) {
+            throw new Error("No array found in the response.");
+          }
+      
+          // Ensure all items in the array have the correct format
+          const isValidArray = textArray.every(
+            (item) =>
+              typeof item === "object" &&
+              item !== null &&
+              "summary" in item &&
+              "experience_level" in item
+          );
+      
+          if (!isValidArray) {
+            throw new Error("Array items do not match expected format.");
+          }
+      
+          return textArray;
+        } catch (error) {
+          console.error("Failed to parse text or find a valid array:", error);
+          return "Error generating list";
+        }
+      };
+      
+      
     const GenerateSummeryFromAI = async () => {
         setLoading(true)
         const PROMPT = prompt.replace('{jobTitle}', cvContent?.title);
         console.log(PROMPT);
         const result = await AIChatSession.sendMessage(PROMPT);
         console.log(JSON.parse(result.response.text()))
-
-        setAiGenerateSummeryList(JSON.parse(result.response.text()))
+        const resp = result.response.text()
+        const formattedText = parseAndFormatToHTML(resp);
+        
+        setAiGenerateSummeryList(formattedText);
         setLoading(false);
     }
 
