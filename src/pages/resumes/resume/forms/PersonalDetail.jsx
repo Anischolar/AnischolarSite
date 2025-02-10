@@ -1,7 +1,7 @@
 import { LoaderCircle } from 'lucide-react';
 import React, { useContext, useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
-import { toast } from 'sonner';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useAuth } from '../../../../authProvider';
@@ -59,7 +59,7 @@ const handleInputChange = (e) => {
             console.log(resp);
             enabledNext(true);
             setLoading(false);
-            toast("Details updated")
+            toast.success("Details updated");
         }, (error) => {
             setLoading(false);
         })
@@ -112,6 +112,7 @@ const handleInputChange = (e) => {
                     </Button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     )
 }

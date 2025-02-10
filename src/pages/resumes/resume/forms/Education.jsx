@@ -1,7 +1,7 @@
 import { LoaderCircle } from 'lucide-react'
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { ToastContainer, toast } from 'react-toastify';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
@@ -92,7 +92,7 @@ function Education() {
     });
 
       await ResumeService.UpdateResumeDetail(params.resumeId, data.data)
-      toast.success("Details updated!");
+      toast.success("Education updated!");
 
   } catch (error) {
       console.error("Error saving education:", error);
@@ -176,6 +176,7 @@ function Education() {
           {loading ? <LoaderCircle className='animate-spin' /> : 'Save'}
         </Button>
       </div>
+      <ToastContainer />
     </div>
   );
 }

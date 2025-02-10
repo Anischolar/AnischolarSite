@@ -48,13 +48,17 @@ const Services = () => {
                 className="col-lg-6 align-items-stretch mb-5"
                 style={{ position: "relative" }}
               >
+                <Link
+                to='/opportunities'
+                >
                 <ServiceCard
                   icon={communityImage}
-                  name={"Community"}
+                  name={"Opportunities"}
                   desription={
                     "Work on real-world projects with industry experts."
                   }
                 />
+                </Link>
                 {/* <span className="badge services text-bg-success">
                   Coming Soon
                 </span> */}

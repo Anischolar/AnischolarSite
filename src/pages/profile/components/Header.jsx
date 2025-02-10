@@ -16,6 +16,8 @@ const Header = ({ user, authUser, onUpdate }) => {
   const [info, setInfo] = useState({
     firstName: '',
     lastName: '',
+    phoneNumber: '',
+    email: '',
     title: '',
     company: '',
     address: '',
@@ -29,6 +31,8 @@ const Header = ({ user, authUser, onUpdate }) => {
         ...prev,
         firstName: user?.firstName,
         lastName: user?.lastName,
+        phoneNumber: user?.phoneNumber,
+        email: user?.email,
         title: user?.title,
         company: user?.company,
         address: user?.address,
@@ -123,6 +127,7 @@ const Header = ({ user, authUser, onUpdate }) => {
           {!editingInfo ? (
             <div>
               <div className="mt-2 font-bold">{info?.firstName + " " + info?.lastName}</div>
+              <div className="text-gray-500">{info?.phoneNumber + " | " + info?.email}</div>
               <div className="text-gray-600">{info?.title + " at " + info?.company}</div>
               <div className="text-gray-500">{info?.address}</div>
             </div>
@@ -140,6 +145,8 @@ const Header = ({ user, authUser, onUpdate }) => {
                         company: info?.company || "",
                         title: info?.title || "",
                         address: info?.address || "",
+                        phoneNumber: info?.phoneNumber || "",
+                        email: info?.email || "",
                       });
                     }}
                   >
@@ -189,6 +196,18 @@ const Header = ({ user, authUser, onUpdate }) => {
                   value={info?.lastName}
                   onChange={(e) => setInfo({ ...info, lastName: e.target.value })}
                   placeholder="Last name"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <Input
+                  value={info?.phoneNumber}
+                  onChange={(e) => setInfo({ ...info, phoneNumber: e.target.value })}
+                  placeholder="Phone Number"
+                />
+                <Input
+                  value={info?.email}
+                  onChange={(e) => setInfo({ ...info, email: e.target.value })}
+                  placeholder="Email"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4 mb-4">

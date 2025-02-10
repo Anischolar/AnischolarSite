@@ -6,6 +6,7 @@ import { useAuth } from "../authProvider";
 import NavDropdown from "./NavDropdown";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { db } from "../Config/firebase.config";
+import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
   const { user, isLoggedIn, logout } = useAuth();
@@ -234,7 +235,9 @@ const Navbar = () => {
                   <button 
                   onClick={handleProfileClick}
                   className="ml-5 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full text-slate-100 ring-slate-100 transition hover:shadow-md hover:ring-2">
-                    <img className="w-full object-cover" src={userData?.profilePicture} alt="Profile" />
+                    {userData?.profilePicture ? <img className="w-full object-cover" src={userData?.profilePicture} alt="Profile" /> :
+                    <CgProfile className="w-full h-10 text-black" />  }
+                    
                   </button>
 
                   {isClicked && <NavDropdown userData={userData} /> }

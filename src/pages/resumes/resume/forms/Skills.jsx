@@ -4,7 +4,7 @@ import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import { LoaderCircle } from 'lucide-react'
 import { useParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { ToastContainer, toast } from 'react-toastify';
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useAuth } from '../../../../authProvider'
@@ -66,7 +66,7 @@ function Skills() {
             .then(
                 (resp) => {
                     setLoading(false);
-                    toast('Details updated!');
+                    toast.success('skills updated!');
                     setCvContent({
                         ...cvContent,
                         skills: skillsList
@@ -116,6 +116,7 @@ function Skills() {
                     {loading ? <LoaderCircle className='animate-spin' /> : 'Save'}
                 </Button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

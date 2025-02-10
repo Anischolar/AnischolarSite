@@ -6,13 +6,13 @@ import ysauImage from "../assets/img/ysau.png";
 import bringoImage from "../assets/img/bringo.png";
 import olivietImage from "../assets/img/olivet.png";
 import hiveImage from "../assets/img/hive-colab.png";
-import ticketyoImage from "../assets/img/ticketyo.png";
+import ticketyoImage from "../assets/img/Ticketyo red.png";
 
 const PartnerImage = ({image}) => {
   return (
     <img
       src={image}
-      className="img-fluid h-32 w-44 mr-10"
+      className="img-fluid h-36 w-44 mr-10"
       data-aos-delay={200}
     />
   )

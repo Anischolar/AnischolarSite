@@ -811,6 +811,7 @@ section {
 @media (max-width: 768px) {
   .clients img {
     width: 40%;
+    height: 50%;
   }
   .partners-img {
     flex-wrap: wrap;
@@ -1037,9 +1038,9 @@ section {
   color: #fff;
 }
 
-.services .icon-box:hover .icon {
+/* .services .icon-box:hover .icon {
   background: #fff;
-}
+} */
 
 .services .icon-box:hover .icon i {
   color: #27ae60;
@@ -2862,8 +2863,10 @@ body {
 }
 
 .available-slots {
-  position: relative;
+  position: absolute;
+  top: 5%;
   left: 75%;
+  height: fit-content;
   background: rgba(2, 104, 2, 0.945);
   width: fit-content;
   padding: 8px;

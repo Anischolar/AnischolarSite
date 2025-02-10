@@ -21,6 +21,7 @@ import Resumes from './pages/resumes'
 import Profile from './pages/profile/page/profile'
 import PaymentPlans from './pages/paymentPlans'
 import Checkout from './pages/checkout'
+import Opportunities from './pages/opportunities'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/farm/:id" element={<Farm />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/internships" element={<Internships />} />
+          <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/applicationForm" element={<ApplicationForm />} />
           <Route path="/blogDetail/:id" element={<SingleBlog />} />
           <Route path="/login" element={<Login />} />

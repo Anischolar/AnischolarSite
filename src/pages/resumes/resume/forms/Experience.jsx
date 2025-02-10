@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react'
 import RichTextEditor from '../RichTextEditor'
 import { useParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { ToastContainer, toast } from 'react-toastify';
 import { LoaderCircle } from 'lucide-react'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
@@ -83,7 +83,7 @@ function Experience() {
             }));
 
             await ResumeService.UpdateResumeDetail(params?.resumeId, data.data);
-            toast.success("Details updated!");
+            toast.success("Experience updated");
 
         } catch (error) {
             console.error("Error saving experience:", error);
@@ -168,6 +168,7 @@ function Experience() {
                     </Button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

@@ -12,7 +12,7 @@ const ServiceCard: React.FC<teamCardProps> = ({ icon, name, desription }) => {
       <div className="icon-box" data-aos="fade-up" data-aos-delay="100">
       <div className="flex justify-between px-10 text-3xl">
           <img className="h-14 w-14" src={icon} alt={name}/>
-        <h4 className="uppercase">
+        <h4 className="uppercase title">
           <a href="">{name}</a>
         </h4>
         </div>

@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { Brain, LoaderCircle } from 'lucide-react';
-import { toast } from 'sonner';
+import { ToastContainer, toast } from 'react-toastify';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { useAuth } from '../../../../authProvider';
@@ -104,7 +104,7 @@ function Summery({ enabledNext }) {
             console.log(resp);
             enabledNext(true);
             setLoading(false);
-            toast("Details updated")
+            toast.success("Summary updated");
         }, (error) => {
             setLoading(false);
         })
@@ -148,7 +148,7 @@ function Summery({ enabledNext }) {
                     </div>
                 ))}
             </div>}
-
+          <ToastContainer />
         </div>
     )
 }

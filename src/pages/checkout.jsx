@@ -29,6 +29,7 @@ const Checkout = () => {
 
     // Get plan details from navigation state
     const plan = location.state?.plan;
+console.log(location);
 
     console.log(userData);
 
@@ -60,40 +61,40 @@ const Checkout = () => {
         if (!plan) navigate('/compare/plans');
     }, [plan, navigate]);
 
-   // Configure Recaptcha
-function onCaptchVerify() {
-    if (!window.recaptchaVerifier) {
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-            size: "invisible",
-            callback: (response) => {
-                console.log("reCAPTCHA verified successfully!");
-                sendOtp(); // Call sendOtp only when reCAPTCHA is solved
-            },
-            "expired-callback": () => {
-                console.log("reCAPTCHA expired, resetting...");
-                window.recaptchaVerifier.reset();
-            }
-        });
-    } else {
-        // Reset and render a new reCAPTCHA instance
-        window.recaptchaVerifier.render().then((widgetId) => {
-            grecaptcha.reset(widgetId);
-        });
+    // Configure Recaptcha
+    function onCaptchVerify() {
+        if (!window.recaptchaVerifier) {
+            window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+                size: "invisible",
+                callback: (response) => {
+                    console.log("reCAPTCHA verified successfully!");
+                    sendOtp(); // Call sendOtp only when reCAPTCHA is solved
+                },
+                "expired-callback": () => {
+                    console.log("reCAPTCHA expired, resetting...");
+                    window.recaptchaVerifier.reset();
+                }
+            });
+        } else {
+            // Reset and render a new reCAPTCHA instance
+            window.recaptchaVerifier.render().then((widgetId) => {
+                grecaptcha.reset(widgetId);
+            });
+        }
     }
-}
 
 
 
     // Send OTP
     function sendOtp() {
         setLoading(true);
-        
+
         // Verify reCAPTCHA before sending OTP
         onCaptchVerify();
-    
+
         const appVerifier = window.recaptchaVerifier;
         const formattedPhone = `+256${phone.trim().replace(/^0/, '')}`;
-    
+
         signInWithPhoneNumber(auth, formattedPhone, appVerifier)
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
@@ -104,7 +105,7 @@ function onCaptchVerify() {
             .catch((error) => {
                 console.error("Error sending OTP:", error);
                 setLoading(false);
-    
+
                 // Reset reCAPTCHA on error
                 if (window.recaptchaVerifier) {
                     window.recaptchaVerifier.render().then((widgetId) => {
@@ -113,7 +114,7 @@ function onCaptchVerify() {
                 }
             });
     }
-    
+
     // Verify OTP
     // const verifyOtp = async () => {
     //     try {
@@ -147,35 +148,42 @@ function onCaptchVerify() {
     // Handle payment
     const handlePayment = async (e) => {
         e.preventDefault();
-        console.log("To be done soon");
-        
 
-        // try {
-        //     setLoading(true);
-        //     const yo = new YoPayments({
-        //         username: 'YO_API_USERNAME',
-        //         password: 'YO_API_PASSWORD'
-        //     });
+        // const response = await fetch("/api/deposit", {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({
+        //       amount: 5000,
+        //       account: "256XXXXXXXXX",
+        //       provider: "MTN",
+        //     }),
+        //   });
 
-        //     const response = await yo.requestPayment({
-        //         amount: plan.price,
-        //         phone: `256${phone.replace(/^0/, '')}`,
-        //         transaction_reference: paymentDetails.transaction_reference,
-        //         reason: paymentDetails.reason
-        //     });
+        //   const data = await response.text();
+        //   console.log("Deposit Response:", data);
+        try {
+            setLoading(true);
+            const priceString = plan.price;
 
-        //     if (response.status === 'success') {
-        //         alert('Payment initiated successfully!');
-        //         navigate('/payment-success');
-        //     } else {
-        //         throw new Error(response.message);
-        //     }
-        // } catch (error) {
-        //     console.error('Payment error:', error);
-        //     alert(`Payment failed: ${error.message}`);
-        // } finally {
-        //     setLoading(false);
-        // }
+            const response = await fetch("https://aniserver-ghhcfe6k.b4a.run/api/deposit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    amount: parseFloat(priceString.replace(/[^0-9.]/g, '')),
+                    account: `256${phone.trim().replace(/^0/, '')}`,
+                    provider: "MTN",
+                    narrative: paymentDetails.transaction_reference
+                }),
+            });
+
+                alert('Payment initiated successfully!');
+                // navigate('/payment-success');
+        } catch (error) {
+            console.error('Payment error:', error);
+            alert(`Payment failed: ${error.message}`);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -226,7 +234,7 @@ function onCaptchVerify() {
                     </div>
 
                     {/* Payment Form */}
-                    {isVerified && (
+                 
                         <form onSubmit={handlePayment} className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium mb-1">Amount</label>
@@ -257,7 +265,7 @@ function onCaptchVerify() {
                                 {loading ? 'Processing Payment...' : 'Complete Payment'}
                             </button>
                         </form>
-                    )}
+                    
 
                     <div id="recaptcha-container"></div>
                 </div>

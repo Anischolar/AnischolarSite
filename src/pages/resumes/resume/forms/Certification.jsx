@@ -4,7 +4,7 @@ import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import { LoaderCircle } from 'lucide-react'
 import { useParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { ToastContainer, toast } from 'react-toastify';
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useAuth } from '../../../../authProvider'
@@ -72,7 +72,7 @@ function Certification() {
             .then(
                 (resp) => {
                     setLoading(false);
-                    toast('Details updated!');
+                    toast.success('Certifications updated!');
                     setCvContent({
                         ...cvContent,
                         certificates: certificatesList
@@ -155,6 +155,7 @@ function Certification() {
                     {loading ? <LoaderCircle className='animate-spin' /> : 'Save'}
                 </Button>
             </div>
+            <ToastContainer />
         </div>
     );
 }
