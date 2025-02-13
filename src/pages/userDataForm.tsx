@@ -52,6 +52,8 @@ const MultiStepForm: React.FC = () => {
         dob: string;
         interests: string[];
         educationLevel: string;
+        graduationDate: string;
+        motivations: string[];
     }
 
     const [formData, setFormData] = useState<FormData>({
@@ -67,6 +69,8 @@ const MultiStepForm: React.FC = () => {
         dob: '',
         interests: [],
         educationLevel: '',
+        graduationDate: '',
+        motivations: [],
     });
 
 
@@ -98,6 +102,19 @@ const MultiStepForm: React.FC = () => {
         });
     };
 
+    const handleMotivationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData((prev) => {
+            const isAlreadySelected = prev.motivations.includes(e.target.value);
+
+            if (!isAlreadySelected) {
+                return {...prev, motivations: [...prev.motivations, e.target.value]};
+            } else if (isAlreadySelected) {
+                return {...prev, motivations: prev.motivations.filter((motivation)=> motivation !== e.target.value)};
+            }
+            return prev;
+        })
+    }
+
 
     const handleEducationLevelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({
@@ -122,9 +139,9 @@ const MultiStepForm: React.FC = () => {
         setIsLoading(true);
 
         // Validation: Check for empty required fields
-        const { firstName, lastName, email, phoneNumber, interests, educationLevel } = formData;
+        const { firstName, lastName, email, phoneNumber, interests, educationLevel, motivations } = formData;
 
-        if (!firstName || !lastName || !email || !phoneNumber || interests.length === 0 || !educationLevel) {
+        if (!firstName || !lastName || !email || !phoneNumber || interests.length === 0 || !educationLevel || motivations.length === 0) {
             Swal.fire({
                 position: "top-end",
                 icon: "warning",
@@ -203,7 +220,7 @@ const MultiStepForm: React.FC = () => {
                     setFormData((prev) => ({
                         ...prev,
                         ...doc.data(),
-                        id: doc.id, 
+                        id: doc.id,
                     }));
                     navigate("/");
                 } else {
@@ -325,7 +342,7 @@ const MultiStepForm: React.FC = () => {
 
                                 <div className="formbold-input-flex">
                                     <div>
-                                    <label htmlFor="address" className="formbold-form-label">
+                                        <label htmlFor="address" className="formbold-form-label">
                                             Address
                                         </label>
                                         <input
@@ -431,7 +448,9 @@ const MultiStepForm: React.FC = () => {
                                     <div className="">
                                         {[
                                             { name: "Fresher", desc: "0-1 years at university" },
-                                            { name: "Continuing Student", desc: "1-3 years at university" },
+                                            { name: "Second Year", desc: "Year 2 at university" },
+                                            { name: "Third Year", desc: "Year 3 at university" },
+                                            { name: "Fourth Year", desc: "Year 4 at university" },
                                             { name: "Finalist", desc: "Students in final year" },
                                             { name: "Graduate", desc: "Students who have recently graduated" },
                                         ].map((level) => (
@@ -455,7 +474,103 @@ const MultiStepForm: React.FC = () => {
                                         ))}
 
                                     </div>
+                                    
+                                    <div className="formbold-input-flex">
+                                        <div>
+                                            <label htmlFor="graduationDate" className="">
+                                                Expected Date of Graduation
+                                            </label>
+                                            <input
+                                                type="date"
+                                                className="formbold-form-input"
+                                                id="graduationDate"
+                                                name="graduationDate"
+                                                value={formData.graduationDate}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div className="d-flex justify-content-between button-container">
+                                    <button type="button" onClick={prevStep} className="formbold-btn">
+                                        Previous
+                                    </button>
+                                    <button type="button" onClick={nextStep} className="formbold-btn">
+                                        Next
+                                    </button>
+                                </div>
+
+                            </div>
+                        )}
+
+                        {step === 4 && (
+                            <div>
+                                <h1 className='fs-3 text-[#27ae60] pb-2'>Career Motivations</h1>
+                                <p className='mb-4 border-bottom'>Tell us what motivates you in your career</p>
+                                <div>
+                                    <label>
+                                        <input
+                                        checked={formData.motivations.includes("personalProfessionalBuildUp")}
+                                        onChange={handleMotivationChange}
+                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="personalProfessionalBuildUp" />
+                                        Personal and professional build up
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input
+                                        checked={formData.motivations.includes("gainPracticalExperience")}
+                                        onChange={handleMotivationChange}
+                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="gainPracticalExperience" />
+                                        Gain practical / hands on experience
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input
+                                        checked={formData.motivations.includes("seekingInternship")}
+                                        onChange={handleMotivationChange}
+                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="seekingInternship" />
+                                        Seeking internship
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input
+                                        checked={formData.motivations.includes("volunteership")}
+                                        onChange={handleMotivationChange}
+                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="volunteership" />
+                                        Volunteership
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input
+                                        checked={formData.motivations.includes("paidInternship")}
+                                        onChange={handleMotivationChange}
+                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="paidInternship" />
+                                        Paid internship
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input
+                                        checked={formData.motivations.includes("improveEmployability")}
+                                        onChange={handleMotivationChange}
+                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="improveEmployability" />
+                                        Improve employability (Job opportunities)
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input
+                                        checked={formData.motivations.includes("connectionsToIndustry")}
+                                        onChange={handleMotivationChange}
+                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="connectionsToIndustry" />
+                                        Connections to industry
+                                    </label>
                                 </div>
 
                                 <div className="button-container">
@@ -466,13 +581,14 @@ const MultiStepForm: React.FC = () => {
                                         Submit
                                     </button>
                                 </div>
-
                             </div>
+
                         )}
+
                     </form>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

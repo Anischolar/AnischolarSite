@@ -84,7 +84,7 @@ const handleInputChange = (e) => {
                     <div className='col-span-2'>
                         <label className='text-sm'>Job Title</label>
                         <Input name="jobTitle" required 
-                        defaultValue={cvContent?.title}
+                        defaultValue={cvContent?.personalDetails?.jobTitle || cvContent?.title}
                         onChange={handleInputChange} />
                     </div>
                     <div className='col-span-2'>

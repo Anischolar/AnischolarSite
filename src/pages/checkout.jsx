@@ -148,24 +148,12 @@ console.log(location);
     // Handle payment
     const handlePayment = async (e) => {
         e.preventDefault();
-
-        // const response = await fetch("/api/deposit", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({
-        //       amount: 5000,
-        //       account: "256XXXXXXXXX",
-        //       provider: "MTN",
-        //     }),
-        //   });
-
-        //   const data = await response.text();
-        //   console.log("Deposit Response:", data);
         try {
             setLoading(true);
             const priceString = plan.price;
-
-            const response = await fetch("https://aniserver-ghhcfe6k.b4a.run/api/deposit", {
+            // https://aniserver-ghhcfe6k.b4a.run/api/deposit
+            // http://localhost:5000/api/deposit
+            const response = await fetch("https://3d79-41-210-155-61.ngrok-free.app/api/deposit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -175,7 +163,8 @@ console.log(location);
                     narrative: paymentDetails.transaction_reference
                 }),
             });
-
+                console.log(response);
+                
                 alert('Payment initiated successfully!');
                 // navigate('/payment-success');
         } catch (error) {

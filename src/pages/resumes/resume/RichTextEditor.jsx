@@ -26,10 +26,15 @@ function RichTextEditor({ index, defaultValue, onRichTextEditorChange, item }) {
     try {
       console.log(text);
       const jsonObject = JSON.parse(text);
-  
+
+      let pointsArray;
       // Extract the first array of points found in the object
-      const pointsArray = Object.values(jsonObject).find((value) => Array.isArray(value));
-  
+      if(Array.isArray(jsonObject)){
+        pointsArray = jsonObject
+      } else {
+        pointsArray = Object.values(jsonObject).find((value) => Array.isArray(value));
+      }
+      
       if (!pointsArray) {
         throw new Error("No array found in the response.");
       }

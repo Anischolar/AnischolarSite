@@ -10,6 +10,7 @@ import ThemeColor from './ThemeColor';
 import { Button } from './ui/button';
 import Header from '../../../components/Header';
 import Certification from './forms/Certification';
+import Referees from './forms/Referees';
 
 function FormSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -49,6 +50,8 @@ function FormSection() {
                   : activeFormIndex == 6 ?
                   <Certification />
                   : activeFormIndex == 7 ?
+                  <Referees />
+                  : activeFormIndex == 8 ?
                     <Navigate to={'/my-resume/' + resumeId + "/view"} />
                     : null
         }

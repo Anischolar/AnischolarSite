@@ -5,6 +5,7 @@ import ExperiencePreview from './preview/ExperiencePreview'
 import EducationalPreview from './preview/EducationalPreview'
 import SkillsPreview from './preview/SkillsPreview'
 import CertificatesPreview from './preview/CertificatesPreview'
+import RefereesPreview from './preview/RefereesPreview'
 
 
 function Template5({ cvData, setCvContent }) {
@@ -26,6 +27,8 @@ function Template5({ cvData, setCvContent }) {
             {cvData?.skills?.length > 0 && <SkillsPreview resumeInfo={cvData} />}
             {/* Certifications */}
             {cvData?.certificates?.length > 0 && <CertificatesPreview resumeInfo={cvData} />}
+            {/* Referees*/}
+            {cvData?.referees?.length > 0 && <RefereesPreview resumeInfo={cvData} />}
         </div>
     )
 }
