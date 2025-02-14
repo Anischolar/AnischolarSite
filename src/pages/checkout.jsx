@@ -29,7 +29,7 @@ const Checkout = () => {
 
     // Get plan details from navigation state
     const plan = location.state?.plan;
-console.log(location);
+    console.log(location);
 
     console.log(userData);
 
@@ -153,7 +153,7 @@ console.log(location);
             const priceString = plan.price;
             // https://aniserver-ghhcfe6k.b4a.run/api/deposit
             // http://localhost:5000/api/deposit
-            const response = await fetch("https://3d79-41-210-155-61.ngrok-free.app/api/deposit", {
+            const response = await fetch("https://aniserver-ghhcfe6k.b4a.run/api/deposit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -163,10 +163,10 @@ console.log(location);
                     narrative: paymentDetails.transaction_reference
                 }),
             });
-                console.log(response);
-                
-                alert('Payment initiated successfully!');
-                // navigate('/payment-success');
+            console.log(response);
+
+            alert('Payment initiated successfully!');
+            // navigate('/payment-success');
         } catch (error) {
             console.error('Payment error:', error);
             alert(`Payment failed: ${error.message}`);
@@ -223,38 +223,40 @@ console.log(location);
                     </div>
 
                     {/* Payment Form */}
-                 
-                        <form onSubmit={handlePayment} className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Amount</label>
-                                <input
-                                    type="text"
-                                    value={plan.price}
-                                    readOnly
-                                    className="p-2 border rounded w-full bg-gray-100"
-                                />
-                            </div>
+                    {
+                        isVerified && (
 
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Transaction Reference</label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={paymentDetails.transaction_reference}
-                                    onChange={(e) => setPaymentDetails({ ...paymentDetails, transaction_reference: e.target.value })}
-                                    className="p-2 border rounded w-full"
-                                />
-                            </div>
+                            <form onSubmit={handlePayment} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium mb-1">Amount</label>
+                                    <input
+                                        type="text"
+                                        value={plan.price}
+                                        readOnly
+                                        className="p-2 border rounded w-full bg-gray-100"
+                                    />
+                                </div>
 
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800"
-                            >
-                                {loading ? 'Processing Payment...' : 'Complete Payment'}
-                            </button>
-                        </form>
-                    
+                                <div>
+                                    <label className="block text-sm font-medium mb-1">Transaction Reference</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={paymentDetails.transaction_reference}
+                                        onChange={(e) => setPaymentDetails({ ...paymentDetails, transaction_reference: e.target.value })}
+                                        className="p-2 border rounded w-full"
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800"
+                                >
+                                    {loading ? 'Processing Payment...' : 'Complete Payment'}
+                                </button>
+                            </form>
+                        )}
 
                     <div id="recaptcha-container"></div>
                 </div>
