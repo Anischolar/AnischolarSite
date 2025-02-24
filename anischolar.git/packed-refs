@@ -1,0 +1,14 @@
+# pack-refs with: peeled fully-peeled sorted 
+dd531db2806e374ae850e29c5c9850c562200f45 refs/heads/blog
+e9f131c2d2615f06614d9ab7568014ac698edb19 refs/heads/gh-page
+f31a9aac41be80770a9f32be4d33c23d837ac782 refs/heads/gh-pages
+99637f30c956a51593480eae36fd9546c7a8ca4e refs/heads/main
+6507e38838a0016bfbdde3417dba52bc46a702f7 refs/heads/new-design
+109fd95962f6881f0101ccffcfc754f46e68be41 refs/heads/react
+1a126611391283972599c587cafc4e5cd8291fb3 refs/heads/second-update
+227938c88be869063aa5fa2596afb00398b5fd13 refs/heads/temp-design
+33998c69ce6095fbecca6a6587a4207c20628b80 refs/heads/vi-react
+1a126611391283972599c587cafc4e5cd8291fb3 refs/pull/1/head
+4f2e89998fbd7bbfe0c741f63ca9a017f55673ca refs/pull/2/head
+3e13b7c6d195336ce40613e01e1e86676a4e70f7 refs/pull/3/head
+dd531db2806e374ae850e29c5c9850c562200f45 refs/pull/4/head

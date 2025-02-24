@@ -1,0 +1,52 @@
+const prompt = `
+          Generate a professional CV in JSON format for the following details:
+          {
+            "personalDetails": {
+              "name": "${formData.firstName} ${formData.lastName}",
+              "email": "${formData.email}",
+              "phone": "${formData.phoneNumber}"
+            },
+            "personalSummary": "Generate a personal summary based on the provided details.",
+            "experience": ${JSON.stringify(formattedExperience)},
+            "education": ${JSON.stringify(formattedEducation)},
+            "skills": ${JSON.stringify(formData.skills)},
+            "certifications": ${JSON.stringify(formData.certifications)}
+          }
+          Please make sure that:
+          - "duties" are formatted as an array for each experience entry.
+          - Use "to" between the start and end dates for consistency in "duration".
+          - Skills should be formatted as an array.
+          - Certifications should be in the format of an array with "title" and "link" fields.
+          Respond only with a valid JSON object in the following format:
+          {
+            personalDetails: {
+              name: "string",
+              email: "string",
+              phone: "string"
+            },
+            personalSummary: "string",
+            experience: [
+              {
+                jobTitle: "string",
+                company: "string",
+                duration: "string",
+                duties: ["string"]
+              }
+            ],
+            education: [
+              {
+                degree: "string",
+                institution: "string",
+                duration: "string"
+              }
+            ],
+            skills: ["string"],
+            certifications: [
+              {
+                title: "string",
+                link: "string"
+              }
+            ]
+          }
+        `;
+      
