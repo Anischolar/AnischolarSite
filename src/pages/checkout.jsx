@@ -153,7 +153,7 @@ const Checkout = () => {
             const priceString = plan.price;
             // https://aniserver-ghhcfe6k.b4a.run/api/deposit
             // http://localhost:5000/api/deposit
-            const response = await fetch("https://aniserver-ghhcfe6k.b4a.run/api/deposit", {
+            const response = await fetch("https://3d79-41-210-155-61.ngrok-free.app/api/deposit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -223,8 +223,8 @@ const Checkout = () => {
                     </div>
 
                     {/* Payment Form */}
-                    {
-                        isVerified && (
+                    {/* {
+                        isVerified && ( */}
 
                             <form onSubmit={handlePayment} className="space-y-4">
                                 <div>
@@ -256,7 +256,7 @@ const Checkout = () => {
                                     {loading ? 'Processing Payment...' : 'Complete Payment'}
                                 </button>
                             </form>
-                        )}
+                        {/* )} */}
 
                     <div id="recaptcha-container"></div>
                 </div>

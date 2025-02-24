@@ -9,11 +9,13 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useAuth } from '../../../../authProvider'
 import ResumeService from '../../../../service/ResumeService'
+import { collection, getDocs, query, updateDoc, where } from '@firebase/firestore'
+import { db } from '../../../../Config/firebase.config'
 
 function Certification() {
     const { resumeId } = useParams();
     const [loading, setLoading] = useState(false);
-    const { cvContent, setCvContent } = useAuth();
+    const { user, cvContent, setCvContent } = useAuth();
 
     // Initialize certificatesList from resumeInfo or with a default structure
     const [certificatesList, setCertificatesList] = useState(
@@ -60,7 +62,8 @@ function Certification() {
         }
     };
 
-    const onSave = () => {
+    const onSave = async () => {
+        const userId = user?.uid;
         setLoading(true);
         const data = {
             data: {
@@ -68,21 +71,35 @@ function Certification() {
             }
         };
 
-        ResumeService.UpdateResumeDetail(resumeId, data.data)
-            .then(
-                (resp) => {
-                    setLoading(false);
-                    toast.success('Certifications updated!');
-                    setCvContent({
-                        ...cvContent,
-                        certificates: certificatesList
-                    });
-                },
-                (error) => {
-                    setLoading(false);
-                    toast('Server Error, Try again!');
-                }
-            );
+
+        try {
+            const userDataRef = collection(db, "userData");
+            const q = query(userDataRef, where("userId", "==", userId));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+                const docRef = querySnapshot.docs[0].ref;
+                // Update the document with the new about info
+                await updateDoc(docRef, { certificates: certificatesList });
+            } else {
+                console.log("No document found with the specified userId.");
+            }
+
+            // Update resumeInfo context only after saving
+            setCvContent({
+                ...cvContent,
+                certificates: certificatesList
+            });
+
+            await ResumeService.UpdateResumeDetail(resumeId, data.data)
+            toast.success('Certifications updated!');
+
+        } catch (error) {
+            console.error('Error updating certifications:', error);
+            toast.error('Error updating certifications');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -151,7 +168,7 @@ function Certification() {
                         - Remove
                     </Button>
                 </div>
-                <Button disabled={loading} style={{marginTop: '4px'}} onClick={onSave}>
+                <Button disabled={loading} style={{ marginTop: '4px' }} onClick={onSave}>
                     {loading ? <LoaderCircle className='animate-spin' /> : 'Save'}
                 </Button>
             </div>

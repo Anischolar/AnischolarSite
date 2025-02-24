@@ -9,6 +9,7 @@ import TopHeader from '../../../components/Header'
 import Experience from '../components/Experience'
 import Education from '../components/Education'
 import { useParams } from 'react-router-dom'
+import Certification from '../components/Certification'
 
 const Profile = () => {
     const { user, cvContent, setCvContent, template } = useAuth();
@@ -87,7 +88,8 @@ const Profile = () => {
                     </div>
                     <div className="bg-white rounded border border-gray-300 p-4">
                         <h2 className="font-bold text-lg mb-2">Certificatons</h2>
-                        <p>To do</p>
+                        <Certification user={userData} authUser={user} />
+
                     </div>
 
                     <div className="bg-white rounded border border-gray-300 p-4">
