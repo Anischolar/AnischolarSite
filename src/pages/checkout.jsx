@@ -223,8 +223,8 @@ const Checkout = () => {
                     </div>
 
                     {/* Payment Form */}
-                    {/* {
-                        isVerified && ( */}
+                    {
+                        isVerified && (
 
                             <form onSubmit={handlePayment} className="space-y-4">
                                 <div>
@@ -256,7 +256,7 @@ const Checkout = () => {
                                     {loading ? 'Processing Payment...' : 'Complete Payment'}
                                 </button>
                             </form>
-                        {/* )} */}
+                         )}
 
                     <div id="recaptcha-container"></div>
                 </div>

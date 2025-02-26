@@ -191,7 +191,7 @@ const MultiStepForm: React.FC = () => {
                 });
             }
 
-            navigate("/profile");
+            navigate("/");
         } catch (error) {
             console.error("Error submitting application:", error);
             Swal.fire({
@@ -247,8 +247,8 @@ const MultiStepForm: React.FC = () => {
                             <div>
                                 <h1 className='fs-3 text-[#27ae60] pb-2'>Fill in your details</h1>
                                 <p className='mb-4 border-bottom'>These will be used on your profile page</p>
-                                <div className="formbold-input-flex">
-                                    <div>
+                                <div className="flex flex-col lg:flex-row gap-3 mb-4">
+                                    <div className=''>
                                         <label htmlFor="firstName" className="formbold-form-label">
                                             First Name
                                         </label>
@@ -277,7 +277,7 @@ const MultiStepForm: React.FC = () => {
                                         />
                                     </div>
                                 </div>
-                                <div className="formbold-input-flex">
+                                <div className="flex flex-col lg:flex-row gap-3 mb-4">
                                     <div>
                                         <label htmlFor="email" className="formbold-form-label">
                                             Email
@@ -308,7 +308,7 @@ const MultiStepForm: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="formbold-input-flex">
+                                <div className="flex flex-col lg:flex-row gap-3 mb-4">
                                     <div>
                                         <label htmlFor="company" className="formbold-form-label">
                                             Company/Institution
@@ -340,7 +340,7 @@ const MultiStepForm: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="formbold-input-flex">
+                                <div className="flex flex-col lg:flex-row gap-3 mb-4">
                                     <div>
                                         <label htmlFor="address" className="formbold-form-label">
                                             Address
@@ -358,7 +358,7 @@ const MultiStepForm: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="formbold-input-flex">
+                                <div className="flex flex-col lg:flex-row gap-3 mb-4">
                                     <div>
                                         <label htmlFor="gender" className="formbold-form-label">
                                             Gender
