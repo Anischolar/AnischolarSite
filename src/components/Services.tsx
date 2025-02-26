@@ -33,13 +33,18 @@ const Services = () => {
               </div>
               <div
                 className="col-lg-6 mb-5"
-                style={{ position: "relative" }}
               >
-                <ServiceCard
-                  icon={shortCourseImage}
-                  name={"Short Courses"}
-                  desription={"Catch up on the latest trends and skills."}
-                />
+                <Link
+                  to="/short-courses"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  <ServiceCard
+                    icon={shortCourseImage}
+                    name={"Short Courses"}
+                    desription={"Catch up on the latest trends and skills."}
+                  />
+                </Link>
+
                 {/* <span className="badge services text-bg-success">
                   Coming Soon
                 </span> */}
@@ -49,15 +54,15 @@ const Services = () => {
                 style={{ position: "relative" }}
               >
                 <Link
-                to='/opportunities'
+                  to='/opportunities'
                 >
-                <ServiceCard
-                  icon={communityImage}
-                  name={"Opportunities"}
-                  desription={
-                    "Work on real-world projects with industry experts."
-                  }
-                />
+                  <ServiceCard
+                    icon={communityImage}
+                    name={"Opportunities"}
+                    desription={
+                      "Work on real-world projects with industry experts."
+                    }
+                  />
                 </Link>
                 {/* <span className="badge services text-bg-success">
                   Coming Soon
