@@ -44,7 +44,9 @@ const ShortCourses = () => {
         </section>
 
         <div className="container">
-          <h2 className="mt-5">Our Course Listings</h2>
+          <div className="section-title text-left mt-5" data-aos="fade-up">
+            <h2 className="!text-lg md:!text-3xl">Courses Listing</h2>
+          </div>
           <div class="max-w-sm rounded-lg bg-white shadow-sm border border-transparent">
             <div class="w-full h-full bg-purple-200 flex items-center justify-center">
               <img
