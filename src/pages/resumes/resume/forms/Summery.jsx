@@ -60,7 +60,6 @@ function Summery({ enabledNext }) {
         //   if (!isValidArray) {
         //     throw new Error("Array items do not match expected format.");
         //   }
-          console.log(textArray);
           
           return textArray;
         } catch (error) {
@@ -72,10 +71,11 @@ function Summery({ enabledNext }) {
       
     const GenerateSummeryFromAI = async () => {
         setLoading(true)
-        const PROMPT = prompt.replace('{jobTitle}', cvContent?.personalDetails?.jobTitle);
+        
+        const PROMPT = prompt.replace('{jobTitle}', cvContent?.personalDetails?.jobTitle || cvContent?.title);
         console.log(PROMPT);
         const result = await AIChatSession.sendMessage(PROMPT);
-        console.log(JSON.parse(result.response.text()))
+        // console.log(JSON.parse(result.response.text()))
         const resp = result.response.text()
         const formattedText = parseAndFormatToHTML(resp);
         
