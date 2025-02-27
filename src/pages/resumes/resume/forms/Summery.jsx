@@ -57,10 +57,11 @@ function Summery({ enabledNext }) {
               "experience_level" in item
           );
       
-          if (!isValidArray) {
-            throw new Error("Array items do not match expected format.");
-          }
-      
+        //   if (!isValidArray) {
+        //     throw new Error("Array items do not match expected format.");
+        //   }
+          console.log(textArray);
+          
           return textArray;
         } catch (error) {
           console.error("Failed to parse text or find a valid array:", error);
@@ -144,7 +145,7 @@ function Summery({ enabledNext }) {
                         onClick={() => setSummery(item?.summary)}
                         className='p-5 shadow-lg my-4 rounded-lg cursor-pointer'>
                         <h2 className='font-bold my-1 text-primary'>Level: {item?.experience_level}</h2>
-                        <p>{item?.summary}</p>
+                        <p>{item?.summery || item?.summary}</p>
                     </div>
                 ))}
             </div>}
