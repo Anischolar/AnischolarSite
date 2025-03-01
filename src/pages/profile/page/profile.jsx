@@ -10,6 +10,8 @@ import Experience from '../components/Experience'
 import Education from '../components/Education'
 import { useParams } from 'react-router-dom'
 import Certification from '../components/Certification'
+import Skills from '../components/Skills'
+import Interests from '../components/Interests'
 
 const Profile = () => {
     const { user, cvContent, setCvContent, template } = useAuth();
@@ -79,27 +81,27 @@ const Profile = () => {
                     <Activity user={userData} authUser={user} id="234" />
 
                     <div className="bg-white rounded border border-gray-300 p-4">
-                        <h2 className="font-bold text-lg mb-2">Experience</h2>
+                       
                         <Experience user={userData} authUser={user} />
                     </div>
                     <div className="bg-white rounded border border-gray-300 p-4">
-                        <h2 className="font-bold text-lg mb-2">Education</h2>
+                       
                         <Education user={userData} authUser={user} />
                     </div>
                     <div className="bg-white rounded border border-gray-300 p-4">
-                        <h2 className="font-bold text-lg mb-2">Certificatons</h2>
+                       
                         <Certification user={userData} authUser={user} />
 
                     </div>
 
                     <div className="bg-white rounded border border-gray-300 p-4">
-                        <h2 className="font-bold text-lg mb-2">Skills</h2>
-                        <p>To do</p>
+                        
+                        <Skills user={userData} authUser={user} />
                     </div>
 
                     <div className="bg-white rounded border border-gray-300 p-4">
-                        <h2 className="font-bold text-lg mb-2">Interests</h2>
-                        <p>To do </p>
+                  
+                        <Interests user={userData} authUser={user} />
                     </div>
                 </section>
                 <div className="hidden lg:block lg:w-80 lg:h-max ml-4 bg-white rounded border border-gray-300 p-4 mt-[105px]">

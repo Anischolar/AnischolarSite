@@ -2,52 +2,53 @@ import { collection, getDocs, query, updateDoc, where } from '@firebase/firestor
 import React, { useEffect, useState } from 'react'
 import { db } from '../../../Config/firebase.config';
 
-const Certification = ({ user, authUser }) => {
-    const [certificates, setCertificates] = useState([]);
+const Skills = ({ user, authUser }) => {
+    const [skills, setSkills] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
-        link: '',
-        issueDate: '',
-        expirationDate: '',
-        doesNotExpire: false
+        proficiency: 'Intermediate',
+        yearsOfExperience: '',
+        lastUsed: '',
+        currentlyUsing: false
     });
 
+    const proficiencyLevels = [
+        'Beginner',
+        'Intermediate',
+        'Advanced',
+        'Expert'
+    ];
+
     useEffect(() => {
-        if (user) setCertificates(user?.certificates || []);
+        if (user) setSkills(user?.skills || []);
     }, [user?.firstName]);
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
-        if (name === 'doesNotExpire') {
-            setFormData(prev => ({
-                ...prev,
-                [name]: checked,
-                expirationDate: checked ? '' : prev.expirationDate
-            }));
-        } else {
-            setFormData(prev => ({
-                ...prev,
-                [name]: type === 'checkbox' ? checked : value
-            }));
-        }
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const certificationToSave = { ...formData };
+        const skillToSave = { ...formData };
 
-        let newCertificates;
+        let newSkills;
         if (editingIndex !== null) {
-            newCertificates = [...certificates];
-            newCertificates[editingIndex] = certificationToSave;
+            newSkills = [...skills];
+            newSkills[editingIndex] = skillToSave;
         } else {
-            newCertificates = [...certificates, certificationToSave];
+            newSkills = [...skills, skillToSave];
         }
 
         setIsLoading(true);
+
+        // Save the new skills to the database
         try {
             const userDataRef = collection(db, "userData");
             const q = query(userDataRef, where("userId", "==", authUser?.uid));
@@ -55,48 +56,49 @@ const Certification = ({ user, authUser }) => {
 
             if (!querySnapshot.empty) {
                 const docRef = querySnapshot.docs[0].ref;
-                await updateDoc(docRef, { cetificates: newCertificates });
+                await updateDoc(docRef, { skills: newSkills });
 
-                setCertificates(newCertificates);
+                setSkills(newSkills);
                 setIsModalOpen(false);
                 setFormData({
                     name: '',
-                    link: '',
-                    issueDate: '',
-                    expirationDate: '',
-                    doesNotExpire: false
+                    proficiency: 'Intermediate',
+                    yearsOfExperience: '',
+                    lastUsed: '',
+                    currentlyUsing: false
                 });
-                alert("Certificates saved successfully");
+                alert("Skills saved successfully");
             } else {
                 alert("No user document found!");
             }
         } catch (error) {
-            console.error("Error saving certificate:", error);
-            alert("Failed to save certificate. Please try again.");
+            console.error("Error saving skills:", error);
+            alert("Failed to save skills. Please try again.");
         } finally {
             setIsLoading(false);
         }
+        
     };
 
-    const handleEdit = (cert, index) => {
-        setFormData(cert);
+    const handleEdit = (skill, index) => {
+        setFormData(skill);
         setEditingIndex(index);
         setIsModalOpen(true);
     };
 
     return (
-        <div className='gap-3 my-4'>
-            <div className='flex items-center justify-between'>
-                <h2 className="font-bold text-lg mb-2">Certificatons</h2>
+        <div className="my-4">
+            <div className='flex justify-between items-center'>
+                <h2 className="font-bold text-lg mb-2">Skills</h2>
                 {authUser && (
                     <button
                         onClick={() => {
                             setFormData({
                                 name: '',
-                                link: '',
-                                issueDate: '',
-                                expirationDate: '',
-                                doesNotExpire: false
+                                proficiency: 'Intermediate',
+                                yearsOfExperience: '',
+                                lastUsed: '',
+                                currentlyUsing: false
                             });
                             setEditingIndex(null);
                             setIsModalOpen(true);
@@ -107,45 +109,45 @@ const Certification = ({ user, authUser }) => {
                             <path fillRule="evenodd" d="M12 4a1 1 0 011 1v6h6a1 1 0 110 2h-6v6a1 1 0 11-2 0v-6H5a1 1 0 110-2h6V5a1 1 0 011-1z" clipRule="evenodd" />
                         </svg>
                     </button>
+
+
                 )}
             </div>
-
-            {certificates?.map((cert, index) => (
-                <div key={index} className='flex items-center justify-between relative group my-4'>
-
-                    <div className='flex items-center justify-between w-full'>
-                        <div>
-                            <div className='flex flex-row'>
-                                <h2 className='text-sm font-semibold'>{cert.name}</h2>
-                                {authUser && (
-                                    <button
-                                        onClick={() => handleEdit(cert, index)}
-                                        className="ml-2 text-slate-600 hover:text-slate-800"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                                        </svg>
-                                    </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {skills?.map((skill, index) => (
+                    <div key={index} className="p-3 bg-gray-50 rounded-lg relative group">
+                        {authUser && (
+                            <button
+                                onClick={() => handleEdit(skill, index)}
+                                className="absolute top-2 right-2 text-slate-600 hover:text-slate-800"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                </svg>
+                            </button>
+                        )}
+                        <div className="flex justify-between items-start">
+                            <h3 className="text-sm font-semibold">{skill.name}</h3>
+                            <span className="text-xs bg-slate-200 px-2 py-1 rounded-full">
+                                {skill.proficiency}
+                            </span>
+                        </div>
+                        {(skill.yearsOfExperience || skill.lastUsed) && (
+                            <div className="mt-2 text-xs text-gray-600">
+                                {skill.yearsOfExperience && (
+                                    <p>Experience: {skill.yearsOfExperience} years</p>
+                                )}
+                                {skill.lastUsed && (
+                                    <p>Last used: {skill.lastUsed}</p>
+                                )}
+                                {skill.currentlyUsing && (
+                                    <p className="text-green-600">Currently using</p>
                                 )}
                             </div>
-
-                            {cert.issueDate && (
-                                <p className='text-xs text-gray-500'>
-                                    Issued: {cert.issueDate}{cert.expirationDate && ` - Expires: ${cert.expirationDate}`}
-                                </p>
-                            )}
-                        </div>
-                        <a
-                            href={cert.link}
-                            className="text-sm text-blue-500 hover:text-blue-700 break-all max-w-[60%] text-right"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            View Credential
-                        </a>
+                        )}
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
 
             {isModalOpen && (
                 <div
@@ -154,12 +156,12 @@ const Certification = ({ user, authUser }) => {
                 >
                     <div className="relative mx-auto w-full max-w-2xl rounded-lg bg-white p-6 shadow-lg">
                         <h3 className="text-2xl font-bold mb-6">
-                            {editingIndex !== null ? 'Edit Certification' : 'Add Certification'}
+                            {editingIndex !== null ? 'Edit Skill' : 'Add Skill'}
                         </h3>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Certification Name *</label>
+                                    <label className="block text-sm font-medium text-gray-700">Skill Name *</label>
                                     <input
                                         type="text"
                                         name="name"
@@ -170,47 +172,51 @@ const Certification = ({ user, authUser }) => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Credential URL *</label>
-                                    <input
-                                        type="url"
-                                        name="link"
-                                        value={formData.link}
+                                    <label className="block text-sm font-medium text-gray-700">Proficiency Level *</label>
+                                    <select
+                                        name="proficiency"
+                                        value={formData.proficiency}
                                         onChange={handleInputChange}
                                         className="mt-1 block w-full rounded-md border border-gray-300 p-2"
                                         required
+                                    >
+                                        {proficiencyLevels.map(level => (
+                                            <option key={level} value={level}>{level}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700">Years of Experience</label>
+                                    <input
+                                        type="number"
+                                        name="yearsOfExperience"
+                                        value={formData.yearsOfExperience}
+                                        onChange={handleInputChange}
+                                        className="mt-1 block w-full rounded-md border border-gray-300 p-2"
+                                        min="0"
+                                        step="0.5"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Issue Date</label>
+                                    <label className="block text-sm font-medium text-gray-700">Last Used</label>
                                     <input
                                         type="date"
-                                        name="issueDate"
-                                        value={formData.issueDate}
+                                        name="lastUsed"
+                                        value={formData.lastUsed}
                                         onChange={handleInputChange}
                                         className="mt-1 block w-full rounded-md border border-gray-300 p-2"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700">Expiration Date</label>
-                                    <input
-                                        type="date"
-                                        name="expirationDate"
-                                        value={formData.expirationDate}
-                                        onChange={handleInputChange}
-                                        className="mt-1 block w-full rounded-md border border-gray-300 p-2"
-                                        disabled={formData.doesNotExpire}
                                     />
                                 </div>
                             </div>
                             <div className="flex items-center">
                                 <input
                                     type="checkbox"
-                                    name="doesNotExpire"
-                                    checked={formData.doesNotExpire}
+                                    name="currentlyUsing"
+                                    checked={formData.currentlyUsing}
                                     onChange={handleInputChange}
                                     className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-800"
                                 />
-                                <label className="ml-2 text-sm text-gray-700">This credential does not expire</label>
+                                <label className="ml-2 text-sm text-gray-700">Currently using this skill</label>
                             </div>
                             <div className="flex justify-end gap-4">
                                 <button
@@ -224,10 +230,11 @@ const Certification = ({ user, authUser }) => {
                                     type="submit"
                                     className="px-4 py-2 text-sm font-medium text-white bg-slate-800 rounded-md hover:bg-slate-700"
                                     disabled={isLoading}
-                               >
-                                     {isLoading ? 'Saving...' :
-                                        (editingIndex !== null ? 'Save Changes' : 'Add Certification')
+                                >
+                                    {isLoading ? 'Saving...' :
+                                        (editingIndex !== null ? 'Save Changes' : 'Add Skill')
                                     }
+                                
                                 </button>
                             </div>
                         </form>
@@ -238,4 +245,4 @@ const Certification = ({ user, authUser }) => {
     )
 }
 
-export default Certification
+export default Skills
