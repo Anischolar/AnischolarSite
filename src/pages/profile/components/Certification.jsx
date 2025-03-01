@@ -19,6 +19,8 @@ const Certification = ({ user, authUser }) => {
         if (user) setCertificates(user?.certificates || []);
     }, [user?.firstName]);
 
+    console.log(certificates);
+    
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         if (name === 'doesNotExpire') {
@@ -55,7 +57,7 @@ const Certification = ({ user, authUser }) => {
 
             if (!querySnapshot.empty) {
                 const docRef = querySnapshot.docs[0].ref;
-                await updateDoc(docRef, { cetificates: newCertificates });
+                await updateDoc(docRef, { certificates: newCertificates });
 
                 setCertificates(newCertificates);
                 setIsModalOpen(false);
@@ -87,7 +89,7 @@ const Certification = ({ user, authUser }) => {
     return (
         <div className='gap-3 my-4'>
             <div className='flex items-center justify-between'>
-                <h2 className="font-bold text-lg mb-2">Certificatons</h2>
+                <h2 className="font-bold text-lg mb-2">Certifications</h2>
                 {authUser && (
                     <button
                         onClick={() => {
