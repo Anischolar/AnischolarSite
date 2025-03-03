@@ -20,59 +20,61 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    console.log("email: ", email, "password: ", password, "isSubmitting: ", isSubmitting);
+    
 
-    try {
-      // const usersCollection = collection(db, "users");
-      // const q = query(usersCollection, where("email", "==", email));
-      // const querySnapshot = await getDocs(q);
+    // try {
+    //   // const usersCollection = collection(db, "users");
+    //   // const q = query(usersCollection, where("email", "==", email));
+    //   // const querySnapshot = await getDocs(q);
 
-      // if (querySnapshot.empty) {
-      //   throw new Error("No user found with this email");
-      // }
+    //   // if (querySnapshot.empty) {
+    //   //   throw new Error("No user found with this email");
+    //   // }
 
-      // const userDoc = querySnapshot.docs[0].data() as UserData;
+    //   // const userDoc = querySnapshot.docs[0].data() as UserData;
 
-      const {user} = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      )
+    //   const {user} = await signInWithEmailAndPassword(
+    //     auth,
+    //     email,
+    //     password
+    //   )
 
-      // if (!user || !user.password) {
-      //   throw new Error("User data not found or password is missing");
-      // }
+    //   // if (!user || !user.password) {
+    //   //   throw new Error("User data not found or password is missing");
+    //   // }
 
-      // if (user.password !== password) {
-      //   throw new Error("Invalid password");
-      // }
+    //   // if (user.password !== password) {
+    //   //   throw new Error("Invalid password");
+    //   // }
 
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Login Successful",
-        showConfirmButton: false,
-        timer: 1000,
-      });
+    //   Swal.fire({
+    //     position: "top-end",
+    //     icon: "success",
+    //     title: "Login Successful",
+    //     showConfirmButton: false,
+    //     timer: 1000,
+    //   });
 
-      login(user); // Set the user using the context login method
-      // Redirect to the intended page or home page
-      const { state } = location;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const from = (state as any)?.from || "/";
-      navigate("/userDataForm");
-    } catch (error) {
-      console.error("Error logging in: ", (error as Error).message);
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: "Login failed",
-        showConfirmButton: false,
-        timer: 1000,
-      });
-      setError((error as Error).message);
-    } finally {
-      setIsSubmitting(false);
-    }
+    //   login(user); // Set the user using the context login method
+    //   // Redirect to the intended page or home page
+    //   const { state } = location;
+    //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //   const from = (state as any)?.from || "/";
+    //   navigate("/userDataForm");
+    // } catch (error) {
+    //   console.error("Error logging in: ", (error as Error).message);
+    //   Swal.fire({
+    //     position: "top-end",
+    //     icon: "error",
+    //     title: "Login failed",
+    //     showConfirmButton: false,
+    //     timer: 1000,
+    //   });
+    //   setError((error as Error).message);
+    // } finally {
+    //   setIsSubmitting(false);
+    // }
   };
 
   return (
