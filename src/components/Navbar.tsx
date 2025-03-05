@@ -215,7 +215,7 @@ const Navbar = () => {
                   Partners
                 </button>
               </li>
-              <li>
+              <li className="pl-3">
                 <Link className="text-decoration-none nav-link" to="/blogs">
                   Blog
                 </Link>
