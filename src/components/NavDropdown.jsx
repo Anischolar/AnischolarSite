@@ -6,7 +6,7 @@ const NavDropdown = ({ userData }) => {
     const { user, isLoggedIn, logout } = useAuth();
     return (
 
-        <div className="absolute lg:right-0 mt-1 flex w-60 flex-col gap-3 rounded-xl md:bg-white p-4 shadow-lg z-10">
+        <div className="absolute lg:right-0 mt-12 w-60 flex-col gap-3 rounded-xl md:bg-white p-4 shadow-lg z-10 hidden sm:flex">
             <div class="flex items-center gap-3">
                 {/* <div class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg border-2 border-slate-600">
                     <img class="w-full object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=top&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=100&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY2Mjk2MTgwNw&amp;ixlib=rb-1.2.1&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=100" alt="Profile" />

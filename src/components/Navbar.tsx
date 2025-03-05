@@ -7,6 +7,7 @@ import NavDropdown from "./NavDropdown";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { db } from "../Config/firebase.config";
 import { CgProfile } from "react-icons/cg";
+import PhoneNavDropdown from "./PhoneNavDropdown";
 
 const Navbar = () => {
   const { user, isLoggedIn, logout } = useAuth();
@@ -225,7 +226,7 @@ const Navbar = () => {
                 </button>
               </li>
               {isLoggedIn ? (
-                <li>
+                <li className="flex">
                   {/* <button
                     className="btn text-decoration-none getstarted"
                     onClick={logout}
@@ -239,6 +240,10 @@ const Navbar = () => {
                     <CgProfile className="w-full h-10 text-black" />  }
                     
                   </button>
+
+                  <div className="block sm:hidden">
+                    <PhoneNavDropdown />
+                  </div>
 
                   {isClicked && <NavDropdown userData={userData} /> }
                 </li>
