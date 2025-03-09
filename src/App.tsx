@@ -53,7 +53,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/compare/plans" element={<PaymentPlans />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
-          <Route path='/thank-you' element={<Thankyou />} />
+          <Route path='/thankyou' element={<Thankyou />} />
           <Route path="*" element={<NotFound />} /> {/* 404 route */}
         </Routes>
       </Router>

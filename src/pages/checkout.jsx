@@ -44,6 +44,7 @@ const Checkout = () => {
                 if (!querySnapshot.empty) {
                     const doc = querySnapshot.docs[0];
                     setPhone(doc.data().phoneNumber || "");
+                    setUserData(doc.data());
                 } else {
                     console.log("No user data found for the specified userId.");
                 }
@@ -166,7 +167,7 @@ const Checkout = () => {
             console.log(response);
 
             alert('Payment initiated successfully!');
-            navigate('/payment-confirmation');
+            navigate('/payment-confirmation', { state: { plan, paymentDetails, phone, userData } });
         } catch (error) {
             console.error('Payment error:', error);
             alert(`Payment failed: ${error.message}`);
