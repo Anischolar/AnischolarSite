@@ -150,6 +150,7 @@ const Checkout = () => {
     const handlePayment = async (e) => {
         e.preventDefault();
         try {
+           const email = userData?.email
             setLoading(true);
             const priceString = plan.price;
             // https://aniserver-ghhcfe6k.b4a.run/api/deposit
@@ -167,7 +168,7 @@ const Checkout = () => {
             console.log(response);
 
             alert('Payment initiated successfully!');
-            navigate('/payment-confirmation', { state: { plan, paymentDetails, phone, userData } });
+            navigate('/payment-confirmation', { state: { plan, paymentDetails, phone, email } });
         } catch (error) {
             console.error('Payment error:', error);
             alert(`Payment failed: ${error.message}`);
