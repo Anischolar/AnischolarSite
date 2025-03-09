@@ -5,7 +5,7 @@ import { initializeApp } from 'firebase/app';
 // import YoPayments from '@yoapi/react';
 import { auth, db } from '../Config/firebase.config';
 import { useAuth } from '../authProvider';
-import { collection, getDocs, query, where } from '@firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from '@firebase/firestore';
 import { Separator } from '@radix-ui/react-dropdown-menu';
 import Header from '../components/Header';
 
@@ -19,15 +19,29 @@ const PaymentConfirmation = () => {
 
     console.log(location);
     console.log(user);
-    
+
     const hamdlePaymentConfirmation = async () => {
         try {
-            const docRef = await db.collection('payments').add({
-                ...location.state,
-                user: user.uid,
-                status: 'pending'
-            });
-            console.log('Document written with ID: ', docRef.id);
+            const userId = user?.uid;
+            const docRef = collection(db, "payments");
+            const q = query(docRef, where("userId", "==", userId));
+            const querySnapshot = await getDocs(q);
+
+            if (querySnapshot.empty) {
+                await addDoc(collection(db, "payments"), {
+                    ...location.state,
+                    user: user.uid,
+                    status: 'pending'
+                });
+            } else {
+                const docId = querySnapshot.docs[0].id;
+                await addDoc(collection(db, "payments"), {
+                    ...location.state,
+                    user: user.uid,
+                    status: 'pending'
+                });
+            }
+
             navigate('/thankyou');
         } catch (e) {
             console.error('Error adding document: ', e);
@@ -54,10 +68,10 @@ const PaymentConfirmation = () => {
                             <div className="flex mt-4 justify-between">
                                 <button
                                     onClick={hamdlePaymentConfirmation}
-                                className="bg-green-500 text-white px-4 py-2 rounded-lg">Confirm Payment</button>
-                                <button 
-                                onClick={handlePaymentCancel}
-                                className="bg-red-500 text-white px-4 py-2 rounded-lg">Cancel Payment</button>
+                                    className="bg-green-500 text-white px-4 py-2 rounded-lg">Confirm Payment</button>
+                                <button
+                                    onClick={handlePaymentCancel}
+                                    className="bg-red-500 text-white px-4 py-2 rounded-lg">Cancel Payment</button>
                             </div>
                         </div>
                     </div>
