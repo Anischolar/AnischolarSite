@@ -22,6 +22,7 @@ const PaymentConfirmation = () => {
 
     const hamdlePaymentConfirmation = async () => {
         try {
+            setLoading(true);
             const userId = user?.uid;
             const docRef = collection(db, "payments");
             const q = query(docRef, where("userId", "==", userId));
@@ -41,7 +42,7 @@ const PaymentConfirmation = () => {
                     status: 'pending'
                 });
             }
-
+            setLoading(false);
             navigate('/thankyou');
         } catch (e) {
             console.error('Error adding document: ', e);
@@ -68,7 +69,9 @@ const PaymentConfirmation = () => {
                             <div className="flex mt-4 justify-between">
                                 <button
                                     onClick={hamdlePaymentConfirmation}
-                                    className="bg-green-500 text-white px-4 py-2 rounded-lg">Confirm Payment</button>
+                                    className="bg-green-500 text-white px-4 py-2 rounded-lg">
+                                        {loading ? 'Loading...' : 'Confirm Payment'}
+                                        </button>
                                 <button
                                     onClick={handlePaymentCancel}
                                     className="bg-red-500 text-white px-4 py-2 rounded-lg">Cancel Payment</button>

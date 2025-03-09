@@ -59,7 +59,7 @@ const PaymentPlans = () => {
     const plans = [
         {
             title: 'Basic Plan',
-            price: 'UGX 500',
+            price: 'UGX 10,000',
             period: 'per month',
             features: [
                 'Signing up',
