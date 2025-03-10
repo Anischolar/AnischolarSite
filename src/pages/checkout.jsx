@@ -44,6 +44,7 @@ const Checkout = () => {
                 if (!querySnapshot.empty) {
                     const doc = querySnapshot.docs[0];
                     setPhone(doc.data().phoneNumber || "");
+                    setUserData(doc.data());
                 } else {
                     console.log("No user data found for the specified userId.");
                 }
@@ -149,11 +150,12 @@ const Checkout = () => {
     const handlePayment = async (e) => {
         e.preventDefault();
         try {
+           const email = userData?.email
             setLoading(true);
             const priceString = plan.price;
             // https://aniserver-ghhcfe6k.b4a.run/api/deposit
             // http://localhost:5000/api/deposit
-            const response = await fetch("https://3d79-41-210-155-61.ngrok-free.app/api/deposit", {
+            const response = await fetch("https://aniserver-ghhcfe6k.b4a.run/api/deposit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -166,7 +168,7 @@ const Checkout = () => {
             console.log(response);
 
             alert('Payment initiated successfully!');
-            // navigate('/payment-success');
+            navigate('/payment-confirmation', { state: { plan, paymentDetails, phone, email } });
         } catch (error) {
             console.error('Payment error:', error);
             alert(`Payment failed: ${error.message}`);
