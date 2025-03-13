@@ -30,6 +30,7 @@ import JobPosting from './pages/industry/JobPosting'
 import Applications from './pages/industry/Applications'
 import PaymentConfirmation from './pages/paymentConfirmation'
 import Thankyou from './pages/thankyou'
+import CompanySignIn from './pages/industry/companySignin'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -61,11 +62,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           {/* Industry Routes */} 
           <Route path="/industry" element={<Index />} />
           <Route path="/industry/create-profile" element={<CreateProfile />} />
+          <Route path="/industry/signin" element={<CompanySignIn />} />
           <Route path="/industry/job-posting" element={<JobPosting />} />
           <Route path="/industry/request-demo" element={<RequestDemo />} />
           <Route path='/industry/applications' element={<Applications />} />
-
-
           <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
           <Route path='/thankyou' element={<Thankyou />} />
           <Route path="*" element={<NotFound />} /> {/* 404 route */}

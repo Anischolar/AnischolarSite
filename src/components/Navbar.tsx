@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo2.png";
 import { useEffect, useState } from "react";
 import React from "react";
@@ -12,53 +12,73 @@ import PhoneNavDropdown from "./PhoneNavDropdown";
 const Navbar = () => {
   const { user, isLoggedIn, logout } = useAuth();
   const [isClicked, setIsClicked] = useState(false);
+  const [isStudent, setIsStudent] = useState(true);
   const [userData, setUserData] = useState({
     profilePicture: '',
     firstName: '',
     lastName: '',
     email: ''
   });
+  const [isVisible, setIsVisible] = useState(true);
 
-  const handleProfileClick = ()=> {
+  const navigate = useNavigate();
+  let lastScrollY = 0;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setIsVisible(false); // Hide when scrolling down
+      } else {
+        setIsVisible(true); // Show when scrolling up
+      }
+      lastScrollY = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleProfileClick = () => {
     setIsClicked(!isClicked);
   }
 
   useEffect(() => {
     const userId = user?.uid;
     const fetchUserData = async () => {
-        try {
-            const userDataRef = collection(db, "userData");
-            const q = query(userDataRef, where("userId", "==", userId));
-            const querySnapshot = await getDocs(q);
+      try {
+        const userDataRef = collection(db, "userData");
+        const q = query(userDataRef, where("userId", "==", userId));
+        const querySnapshot = await getDocs(q);
 
-            if (!querySnapshot.empty) {
-                const doc = querySnapshot.docs[0];
-                const data = doc.data() as {
-                  profilePicture?: { url: string };
-                  firstName?: string;
-                  lastName?: string;
-                  email?: string;
-                };
-          
-                setUserData({
-                  ...data,
-                  profilePicture: data?.profilePicture?.url || "",
-                  firstName: data?.firstName || "",
-                  lastName: data?.lastName || "",
-                  email: data?.email || "",
-                });
-            } else {
-                console.log("No user data found for the specified userId.");
-            }
-        } catch (error) {
-            console.error("Error fetching user data:", error);
+        if (!querySnapshot.empty) {
+          const doc = querySnapshot.docs[0];
+          const data = doc.data() as {
+            profilePicture?: { url: string };
+            firstName?: string;
+            lastName?: string;
+            email?: string;
+          };
+
+          setUserData({
+            ...data,
+            profilePicture: data?.profilePicture?.url || "",
+            firstName: data?.firstName || "",
+            lastName: data?.lastName || "",
+            email: data?.email || "",
+          });
+        } else {
+          setIsStudent(false);
+          navigate("/industry");
         }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     };
 
     if (userId) {
-        fetchUserData();
+      fetchUserData();
     }
-}, [user?.uid]);
+  }, [user?.uid]);
 
 
   useEffect(() => {
@@ -99,26 +119,6 @@ const Navbar = () => {
     };
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const scrollto = (el: string) => {
-  //   const header = document.querySelector("#header") as HTMLElement | null;
-  //   if (!header) return;
-
-  //   let offset = header.offsetHeight;
-
-  //   if (!header.classList.contains("header-scrolled")) {
-  //     offset -= 20;
-  //   }
-
-  //   const element = document.querySelector(el) as HTMLElement | null;
-  //   if (!element) return;
-
-  //   const elementPos = element.offsetTop;
-  //   window.scrollTo({
-  //     top: elementPos - offset,
-  //     behavior: "smooth",
-  //   });
-  // };
 
   const handleScroll = () => {
     const header = document.querySelector("#header") as HTMLElement | null;
@@ -182,6 +182,19 @@ const Navbar = () => {
   return (
     <div>
       <header id="header" className="fixed-top flex flex-col align-items-center">
+        {/* Switcher */}
+        <div
+          id="switcher"
+          className={`flex items-center justify-center w-full h-7 bg-gray-100 text-gray-800 shadow-md transition-transform duration-300 ${isVisible ? "translate-y-0" : "-translate-y-full"
+            }`}
+        >
+          <Link
+            to="/industry"
+            className="text-sm font-semibold text-gray-800 hover:text-gray-900 transition-colors duration-200"
+          >
+            Hiring? <span className="hover:underline">Find your future talent here </span>
+          </Link>
+        </div>
         <div className="container d-flex align-items-center justify-content-between">
           <div className="logo">
             <button>
@@ -207,7 +220,7 @@ const Navbar = () => {
               </li>
               <li>
                 <button className="nav-link scrollto " onClick={() => scrollto("#testimonials")}>
-                Testimonials
+                  Testimonials
                 </button>
               </li>
               <li>
@@ -233,19 +246,19 @@ const Navbar = () => {
                   >
                     Logout
                   </button> */}
-                  <button 
-                  onClick={handleProfileClick}
-                  className="ml-5 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full text-slate-100 ring-slate-100 transition hover:shadow-md hover:ring-2">
+                  <button
+                    onClick={handleProfileClick}
+                    className="ml-5 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full text-slate-100 ring-slate-100 transition hover:shadow-md hover:ring-2">
                     {userData?.profilePicture ? <img className="w-full object-cover" src={userData?.profilePicture} alt="Profile" /> :
-                    <CgProfile className="w-full h-10 text-black" />  }
-                    
+                      <CgProfile className="w-full h-10 text-black" />}
+
                   </button>
 
                   <div className="block sm:hidden">
                     <PhoneNavDropdown />
                   </div>
 
-                  {isClicked && <NavDropdown userData={userData} /> }
+                  {isClicked && <NavDropdown userData={userData} />}
                 </li>
               ) : (
                 <li>
