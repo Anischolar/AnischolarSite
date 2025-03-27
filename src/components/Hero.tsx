@@ -36,7 +36,7 @@ const Hero = () => {
                     </Link>
 
                   <Link to="/cover-letter" className="font-bold ml-4 text-[16px] tracking-wide inline-block px-7 py-2.5 rounded-full transition duration-500 border-2 border-[#27ae60;] bg-white hover:text-[#27ae60]">
-                      CREATE CV
+                      COVER LETTER
                     </Link>
                     </div>
                   ) : (
