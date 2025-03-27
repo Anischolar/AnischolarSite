@@ -188,7 +188,7 @@ const Index = () => {
                       Create job and internship postings for students to discover and apply
                     </p>
                     <Button className="bg-[#27ae60] text-white" asChild>
-                      <Link to="/industry">
+                      <Link to="/industry/job-posting">
                         Post a Job
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Link>

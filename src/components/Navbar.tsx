@@ -10,7 +10,7 @@ import { CgProfile } from "react-icons/cg";
 import PhoneNavDropdown from "./PhoneNavDropdown";
 
 const Navbar = () => {
-  const { user, isLoggedIn, logout } = useAuth();
+  const { user, isLoggedIn, setUserInfo, logout } = useAuth();
   const [isClicked, setIsClicked] = useState(false);
   const [isStudent, setIsStudent] = useState(true);
   const [userData, setUserData] = useState({
@@ -52,6 +52,7 @@ const Navbar = () => {
 
         if (!querySnapshot.empty) {
           const doc = querySnapshot.docs[0];
+          setUserInfo(doc.data());
           const data = doc.data() as {
             profilePicture?: { url: string };
             firstName?: string;

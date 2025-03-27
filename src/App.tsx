@@ -31,6 +31,7 @@ import Applications from './pages/industry/Applications'
 import PaymentConfirmation from './pages/paymentConfirmation'
 import Thankyou from './pages/thankyou'
 import CompanySignIn from './pages/industry/companySignin'
+import CoverLetterIndex from './pages/coverLetters'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -54,6 +55,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/resumes" element={<Resumes />} />
           <Route path="/resumes/resume/:resumeId/edit" element={<EditResume />} />
           <Route path="/my-resume/:resumeId/view" element={<CVPreview />} />
+          <Route path="/cover-letter" element={<CoverLetterIndex />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id/view" element={<Profile />} />
           <Route path="/compare/plans" element={<PaymentPlans />} />

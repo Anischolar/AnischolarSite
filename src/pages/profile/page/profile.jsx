@@ -18,7 +18,7 @@ const Profile = () => {
     const { user, cvContent, setCvContent, template } = useAuth();
     const [userData, setUserData] = useState(null)
     const { id } = useParams();
-    console.log(id);
+    console.log(userData);
 
 
     useEffect(() => {
