@@ -30,7 +30,7 @@ const CoverLetterIndex = () => {
           if (!querySnapshot.empty) {
             const doc = querySnapshot.docs[0];
             const data = doc.data();
-            
+
             if (!userInfo?.firstName) {
               setUserInfo(data);
             }
@@ -148,7 +148,7 @@ const CoverLetterIndex = () => {
                     delay={500 + (index * 100)}
                     className="flex flex-col items-center text-center p-6 bg-card/50 backdrop-blur-sm rounded-lg border border-border/50 shadow-sm hover:shadow-md transition-all"
                   >
-                    <div className="w-12 h-12 rounded-full bg-slate-300 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-full bg-[#27ae60]/10 flex items-center justify-center mb-4">
                       {feature.icon}
                     </div>
                     <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
