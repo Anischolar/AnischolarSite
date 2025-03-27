@@ -21,7 +21,7 @@ const CoverLetterIndex = () => {
   useEffect(() => {
     const userId = user?.uid;
     const fetchUserData = async () => {
-      if (!userInfo?.firstName) {
+      if (userId) {
         try {
           const userDataRef = collection(db, "userData");
           const q = query(userDataRef, where("userId", "==", userId));
@@ -30,10 +30,12 @@ const CoverLetterIndex = () => {
           if (!querySnapshot.empty) {
             const doc = querySnapshot.docs[0];
             const data = doc.data();
+            
+            if (!userInfo?.firstName) {
+              setUserInfo(data);
+            }
 
-            setUserInfo(data);
-
-            if(data.coverLetter) {
+            if (data.coverLetter) {
               setLetterContent(data.coverLetter);
             }
           } else {
