@@ -31,11 +31,11 @@ const Hero = () => {
                 <div className="get-started" data-aos="fade-up" data-aos-delay="100">
                   {isLoggedIn ? (
                     <div className="flex">
-                    <Link to="/resumes" className="font-raleway font-bold text-[10px] lg:text-[16px] tracking-wide inline-block px-4 py-2.5 rounded-full transition duration-500 text-white border-2 border-green-600 bg-green-600 hover:bg-white hover:!text-black hover:border-green-600 scrollto">
+                    <Link to="/resumes" className="font-raleway font-bold text-[14px] lg:text-[16px] tracking-wide inline-block px-4 py-2.5 rounded-full transition duration-500 text-white border-2 border-green-600 bg-green-600 hover:bg-white hover:!text-black hover:border-green-600 scrollto">
                       CREATE CV
                     </Link>
 
-                  <Link to="/cover-letter" className="font-bold ml-4 text-[10px] lg:text-[16px]  tracking-wide inline-block px-4 py-2.5 rounded-full transition duration-500 border-2 border-[#27ae60;] bg-white hover:text-[#27ae60]">
+                  <Link to="/cover-letter" className="font-bold ml-4 text-[14px] lg:text-[16px]  tracking-wide inline-block px-4 py-2.5 rounded-full transition duration-500 border-2 border-[#27ae60;] bg-white hover:text-[#27ae60]">
                       COVER LETTER
                     </Link>
                     </div>
