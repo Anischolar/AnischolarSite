@@ -2,6 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from './authProvider'
+import './App'
+
+// pages
 import HomePage from './pages/homePage'
 import Blogs from './pages/blogs'
 import Internships from './pages/internships'
@@ -11,11 +14,10 @@ import SingleBlog from './pages/singleBlog'
 import Login from './pages/login'
 import Register from './pages/register'
 import NotFound from './pages/notFound'
-import './App'
 import UserDataForm from './pages/userDataForm'
 import CVPreview from './pages/cvPreview'
 import TemplateSelect from './pages/templateSelect'
-import FormSection from './pages/resumes/resume/FormSection'
+// import FormSection from './pages/resumes/resume/FormSection'
 import EditResume from './pages/editResume'
 import Resumes from './pages/resumes'
 import Profile from './pages/profile/page/profile'
@@ -61,7 +63,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/compare/plans" element={<PaymentPlans />} />
           <Route path="/checkout" element={<Checkout />} />
 
-          {/* Industry Routes */} 
+          {/* Industry Routes */}
           <Route path="/industry" element={<Index />} />
           <Route path="/industry/create-profile" element={<CreateProfile />} />
           <Route path="/industry/signin" element={<CompanySignIn />} />
