@@ -15,7 +15,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isLoggedIn: boolean;
-  login: (user) => void;
+  login: (user: User) => void;
   logout: () => void;
   cvContent: any | null;
   setCvContent: (cv: any) => void;
@@ -67,11 +67,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         logout,
         cvContent,
         setCvContent,
-        template, 
+        template,
         setTemplate,
-        companyData, 
+        companyData,
         setCompanyData,
-        userInfo, 
+        userInfo,
         setUserInfo
       }}
     >
