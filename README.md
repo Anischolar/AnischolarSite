@@ -1,4 +1,6 @@
-# Tasks
+# React Vite project
+
+## Tasks
 
 - [ ] Add url auth protection to limit access to some pages unauth
 - [ ] URL has a wierd hash
@@ -6,7 +8,7 @@
 - [ ] Better define UserData to include any possible fields and avoid any in auth provider.
 - [ ] Gives blank screen with storage sevice error Perhaps removing blocking of this behaviuor
 
-# Issues
+## Issues
 
 ## npm issues
 
