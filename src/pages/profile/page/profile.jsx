@@ -12,12 +12,13 @@ import { useParams } from 'react-router-dom'
 import Certification from '../components/Certification'
 import Skills from '../components/Skills'
 import Interests from '../components/Interests'
+import { toast, ToastContainer } from 'react-toastify'
 
 const Profile = () => {
     const { user, cvContent, setCvContent, template } = useAuth();
     const [userData, setUserData] = useState(null)
     const { id } = useParams();
-    console.log(id);
+    console.log(userData);
 
 
     useEffect(() => {
@@ -74,8 +75,17 @@ const Profile = () => {
     return (
         <>
             <TopHeader title="Profile" title2="" />
-            <div className="flex flex-row p-3 lg:p-5 lg:bg-[#f4fcd4]">
+            <div className="flex flex-col lg:flex lg:flex-row p-3 lg:p-5 lg:bg-[#f4fcd4]">
+               
                 <section className="grid gap-4 w-full lg:w-3/4 mt-16">
+                 {/* scroll to bottom for the profile link */}
+                {
+                    !user?.uid && (
+                        <p className='text-sm text-gray-500 flex lg:hidden'>
+                    Scroll to bottom for your personalized profile link
+                </p>
+                    )
+                } 
                     <Header user={userData} authUser={user} onUpdate={(user) => setUser(user)} />
                     <About user={userData} authUser={user} onUpdate={(user) => setUser(user)} />
                     <Activity user={userData} authUser={user} id="234" />
@@ -104,7 +114,7 @@ const Profile = () => {
                         <Interests user={userData} authUser={user} />
                     </div>
                 </section>
-                <div className="hidden lg:block lg:w-80 lg:h-max ml-4 bg-white rounded border border-gray-300 p-4 mt-[105px]">
+                <div className="lg:w-80 lg:h-max ml-4 bg-white rounded border border-gray-300 p-4 mt-[105px]">
                     <div className='flex justify-between'>
                         <h2 className="font-bold text-lg mb-2">Public Profile Url</h2>
                         <button
@@ -113,6 +123,7 @@ const Profile = () => {
                                 navigator.clipboard.writeText(
                                     `https://anischolar.com/#/profile/${user?.uid}/view`
                                 );
+                                toast.success("Copied to clipboard");
                             }}
                         >
                             <svg
@@ -135,6 +146,7 @@ const Profile = () => {
                     <span className='w-full break-all'>{`https://anischolar.com/#/profile/${user?.uid}/view`}</span>
 
                 </div>
+                <ToastContainer />
             </div>
         </>
     )

@@ -83,6 +83,28 @@ const MultiStepForm: React.FC = () => {
         }
     }, [user?.email]);
 
+    useEffect(() => {
+        const userId = user?.uid;
+        const fetchUserData = async () => {
+            try {
+                const companyRef = collection(db, "companies");
+                const q = query(companyRef, where("uid", "==", userId));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    navigate("/industry")
+                } else {
+                    console.log("No user data found for the specified userId.");
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+
+        fetchUserData();
+
+    }, [user?.uid]);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -107,9 +129,9 @@ const MultiStepForm: React.FC = () => {
             const isAlreadySelected = prev.motivations.includes(e.target.value);
 
             if (!isAlreadySelected) {
-                return {...prev, motivations: [...prev.motivations, e.target.value]};
+                return { ...prev, motivations: [...prev.motivations, e.target.value] };
             } else if (isAlreadySelected) {
-                return {...prev, motivations: prev.motivations.filter((motivation)=> motivation !== e.target.value)};
+                return { ...prev, motivations: prev.motivations.filter((motivation) => motivation !== e.target.value) };
             }
             return prev;
         })
@@ -474,7 +496,7 @@ const MultiStepForm: React.FC = () => {
                                         ))}
 
                                     </div>
-                                    
+
                                     <div className="formbold-input-flex">
                                         <div>
                                             <label htmlFor="graduationDate" className="">
@@ -512,63 +534,63 @@ const MultiStepForm: React.FC = () => {
                                 <div>
                                     <label>
                                         <input
-                                        checked={formData.motivations.includes("personalProfessionalBuildUp")}
-                                        onChange={handleMotivationChange}
-                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="personalProfessionalBuildUp" />
+                                            checked={formData.motivations.includes("personalProfessionalBuildUp")}
+                                            onChange={handleMotivationChange}
+                                            className='mr-5 mb-4' type="checkbox" name="motivations" value="personalProfessionalBuildUp" />
                                         Personal and professional build up
                                     </label>
                                 </div>
                                 <div>
                                     <label>
                                         <input
-                                        checked={formData.motivations.includes("gainPracticalExperience")}
-                                        onChange={handleMotivationChange}
-                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="gainPracticalExperience" />
+                                            checked={formData.motivations.includes("gainPracticalExperience")}
+                                            onChange={handleMotivationChange}
+                                            className='mr-5 mb-4' type="checkbox" name="motivations" value="gainPracticalExperience" />
                                         Gain practical / hands on experience
                                     </label>
                                 </div>
                                 <div>
                                     <label>
                                         <input
-                                        checked={formData.motivations.includes("seekingInternship")}
-                                        onChange={handleMotivationChange}
-                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="seekingInternship" />
+                                            checked={formData.motivations.includes("seekingInternship")}
+                                            onChange={handleMotivationChange}
+                                            className='mr-5 mb-4' type="checkbox" name="motivations" value="seekingInternship" />
                                         Seeking internship
                                     </label>
                                 </div>
                                 <div>
                                     <label>
                                         <input
-                                        checked={formData.motivations.includes("volunteership")}
-                                        onChange={handleMotivationChange}
-                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="volunteership" />
+                                            checked={formData.motivations.includes("volunteership")}
+                                            onChange={handleMotivationChange}
+                                            className='mr-5 mb-4' type="checkbox" name="motivations" value="volunteership" />
                                         Volunteership
                                     </label>
                                 </div>
                                 <div>
                                     <label>
                                         <input
-                                        checked={formData.motivations.includes("paidInternship")}
-                                        onChange={handleMotivationChange}
-                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="paidInternship" />
+                                            checked={formData.motivations.includes("paidInternship")}
+                                            onChange={handleMotivationChange}
+                                            className='mr-5 mb-4' type="checkbox" name="motivations" value="paidInternship" />
                                         Paid internship
                                     </label>
                                 </div>
                                 <div>
                                     <label>
                                         <input
-                                        checked={formData.motivations.includes("improveEmployability")}
-                                        onChange={handleMotivationChange}
-                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="improveEmployability" />
+                                            checked={formData.motivations.includes("improveEmployability")}
+                                            onChange={handleMotivationChange}
+                                            className='mr-5 mb-4' type="checkbox" name="motivations" value="improveEmployability" />
                                         Improve employability (Job opportunities)
                                     </label>
                                 </div>
                                 <div>
                                     <label>
                                         <input
-                                        checked={formData.motivations.includes("connectionsToIndustry")}
-                                        onChange={handleMotivationChange}
-                                        className='mr-5 mb-4' type="checkbox" name="motivations" value="connectionsToIndustry" />
+                                            checked={formData.motivations.includes("connectionsToIndustry")}
+                                            onChange={handleMotivationChange}
+                                            className='mr-5 mb-4' type="checkbox" name="motivations" value="connectionsToIndustry" />
                                         Connections to industry
                                     </label>
                                 </div>

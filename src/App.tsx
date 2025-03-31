@@ -23,8 +23,15 @@ import PaymentPlans from './pages/paymentPlans'
 import Checkout from './pages/checkout'
 import Opportunities from './pages/opportunities'
 import ShortCourses from './pages/shortCourses'
+import Index from './pages/industry/Index'
+import CreateProfile from './pages/industry/CreateProfile'
+import RequestDemo from './pages/industry/RequestDemo'
+import JobPosting from './pages/industry/JobPosting'
+import Applications from './pages/industry/Applications'
 import PaymentConfirmation from './pages/paymentConfirmation'
 import Thankyou from './pages/thankyou'
+import CompanySignIn from './pages/industry/companySignin'
+import CoverLetterIndex from './pages/coverLetters'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -48,10 +55,19 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/resumes" element={<Resumes />} />
           <Route path="/resumes/resume/:resumeId/edit" element={<EditResume />} />
           <Route path="/my-resume/:resumeId/view" element={<CVPreview />} />
+          <Route path="/cover-letter" element={<CoverLetterIndex />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id/view" element={<Profile />} />
           <Route path="/compare/plans" element={<PaymentPlans />} />
           <Route path="/checkout" element={<Checkout />} />
+
+          {/* Industry Routes */} 
+          <Route path="/industry" element={<Index />} />
+          <Route path="/industry/create-profile" element={<CreateProfile />} />
+          <Route path="/industry/signin" element={<CompanySignIn />} />
+          <Route path="/industry/job-posting" element={<JobPosting />} />
+          <Route path="/industry/request-demo" element={<RequestDemo />} />
+          <Route path='/industry/applications' element={<Applications />} />
           <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
           <Route path='/thankyou' element={<Thankyou />} />
           <Route path="*" element={<NotFound />} /> {/* 404 route */}
