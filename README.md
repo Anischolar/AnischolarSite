@@ -1,5 +1,7 @@
 # React Vite project
 
+This Repository is the react project for the anischolar web application withh all functionality including industry and students. It has the frontend 
+
 ## Tasks
 
 - [ ] Add url auth protection to limit access to some pages unauth
@@ -7,10 +9,11 @@
 - [x] Importing a user class in auth provider to avoid any type for user.
 - [ ] Better define UserData to include any possible fields and avoid any in auth provider.
 - [ ] Gives blank screen with storage sevice error Perhaps removing blocking of this behaviuor
+- [ ] Dockerising the application to ease deploymnet
 
 ## Issues
 
-## npm issues
+### `npm` issues
 
 ```fish
 npm warn EBADENGINE Unsupported engine {
