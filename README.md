@@ -4,12 +4,22 @@ This Repository is the react project for the anischolar web application withh al
 
 ## Tasks
 
+### Week 14
+
+- [ ] Company side has incomplete login and dashboard logic
+- [ ] Consume the api to submit data
+
+
+
+### Backlog
+
 - [ ] Add url auth protection to limit access to some pages unauth
 - [ ] URL has a wierd hash
 - [x] Importing a user class in auth provider to avoid any type for user.
 - [ ] Better define UserData to include any possible fields and avoid any in auth provider.
 - [ ] Gives blank screen with storage sevice error Perhaps removing blocking of this behaviuor
 - [ ] Dockerising the application to ease deploymnet
+- [ ] Hidden Repo with firebase hosting
 
 ## Issues
 
