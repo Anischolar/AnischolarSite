@@ -13,6 +13,8 @@ This Repository is the react project for the anischolar web application withh al
 
 ## Issues
 
+- [ ] The repositories are public
+
 ### `npm` issues
 
 ```fish
