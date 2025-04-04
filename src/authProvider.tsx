@@ -15,19 +15,20 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isLoggedIn: boolean;
-  login: (user) => void;
+  login: (user: User) => void;
   logout: () => void;
   cvContent: any | null;
   setCvContent: (cv: any) => void;
-  template: null;
+  template: any | null;
   setTemplate: (temp: any) => void;
-  companyData: any | null;
+  companyData: any;
   setCompanyData: (data: any) => void;
   userInfo: any | null;
   setUserInfo: (data: any) => void;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | null>(null);
+
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -46,11 +47,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     initializeUser(); // Initialize user state on component mount
   }, []);
 
-  const login = (userData) => {
+  const login = (userData: User) => {
     localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
   };
-
+  
   const logout = () => {
     localStorage.removeItem('user');
     setUser(null);
