@@ -55,7 +55,7 @@ function Referees() {
     };
 
     const RemoveReferees = () => {
-        if (refereesList.length > 1) {
+        if (refereesList.length > 0) {
             setRefereesList(refereesList.slice(0, -1));
         }
     };

@@ -58,7 +58,7 @@ function Education() {
   };
 
   const RemoveEducation = () => {
-    if (educationalList.length > 1) {
+    if (educationalList.length > 0) {
       setEducationalList(educationalList.slice(0, -1));
     }
   };

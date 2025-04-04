@@ -14,9 +14,9 @@ export const getMockUserProfile = (): UserProfile => {
     fullName: `${userInfo?.firstName} ${userInfo?.lastName}`,
     email: userInfo?.email,
     phone: userInfo?.phoneNumber,
-    skills: userInfo?.skills.map((skill: any) => skill.name),
-    experience: userInfo?.experience.map((exp: any) => `${exp.title} at ${exp.companyName}`).join(', '),
-    education: userInfo?.education.map((edu: any) => `${edu.degree} in ${edu.major} from ${edu.universityName}`).join(', '),
+    skills: userInfo?.skills?.map((skill: any) => skill.name),
+    experience: userInfo?.experience?.map((exp: any) => `${exp.title} at ${exp.companyName}`).join(', '),
+    education: userInfo?.education?.map((edu: any) => `${edu.degree} in ${edu.major} from ${edu.universityName}`).join(', '),
     interests: userInfo?.interests,
     achievements: userInfo?.achievements};
 };
