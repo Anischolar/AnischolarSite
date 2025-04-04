@@ -2,14 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./authProvider";
+
+// Auth
+import Login from "./pages/login";
+import Register from "./pages/register";
+
+// Student Pages
 import HomePage from "./pages/homePage";
 import Blogs from "./pages/blogs";
 import Internships from "./pages/internships";
 import ApplicationForm from "./pages/applicationForm";
 import Farm from "./pages/farm";
 import SingleBlog from "./pages/singleBlog";
-import Login from "./pages/login";
-import Register from "./pages/register";
 import NotFound from "./pages/notFound";
 import "./App";
 import UserDataForm from "./pages/userDataForm";
@@ -23,15 +27,17 @@ import PaymentPlans from "./pages/paymentPlans";
 import Checkout from "./pages/checkout";
 import Opportunities from "./pages/opportunities";
 import ShortCourses from "./pages/shortCourses";
+import PaymentConfirmation from "./pages/paymentConfirmation";
+import Thankyou from "./pages/thankyou";
+import CoverLetterIndex from "./pages/coverLetters";
+
+// Industry Pages
 import Index from "./pages/industry/Index";
 import CreateProfile from "./pages/industry/CreateProfile";
 import RequestDemo from "./pages/industry/RequestDemo";
 import JobPosting from "./pages/industry/JobPosting";
 import Applications from "./pages/industry/Applications";
-import PaymentConfirmation from "./pages/paymentConfirmation";
-import Thankyou from "./pages/thankyou";
 import CompanySignIn from "./pages/industry/companySignin";
-import CoverLetterIndex from "./pages/coverLetters";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -65,6 +71,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="checkout" element={<Checkout />} />
           <Route path="payment-confirmation" element={<PaymentConfirmation />} />
           <Route path="thankyou" element={<Thankyou />} />
+          <Route path="form-section" element={<FormSection/>} />
 
           {/* Industry Routes */}
           <Route
